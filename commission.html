@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+	    <meta http-equiv="content-language" content="en">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>karunochi</title>
+        <meta name="description" content="Heyo there! I love making comfy arts, currently a student stu-dying actuarial mathematics">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="shortcut icon" type="image/x-icon" href="asset\logo\karunochi\other\iconLow.webp" />
+        <link rel="stylesheet" href="shared.css">
+        <style>
+            body{
+                background-color: black;
+                color: white;
+                padding: 0;
+                border: 0;
+                overflow-x: hidden;
+                /* width: 100vw; */
+                font-size: small;
+            }
+
+            .buttonContainer{
+                backdrop-filter: brightness(0.5);
+            }
+            
+
+        img{
+            max-width: 75%;
+        }
+        .main{
+            /* font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; */
+            
+            width: 50vw;
+            text-align: center;
+            margin: auto;
+            font-size: 1.6vw;
+            margin-bottom: 20vh;
+            color: #ddd;
+        }
+        h1{
+            font-family: serif;
+            font-size: 4.5em;
+            /* font-weight: bolder; */
+            font-weight: normal;
+            margin: auto;
+            color: #fff;
+            margin: 5vh 0;
+        }
+        hr{
+            width: 20%;
+        }
+        
+        .answer,.question{
+            border: 1px solid #fff;
+            padding: 5px 10px;
+            text-align: left;
+        }
+        .question{
+            background-color: #111;
+            color: #fff;
+
+            border-radius: 10px 10px 10px 0;
+            margin: 0 50px 5px 0 ;
+        }
+        .answer{
+            background-color: #fff;
+            color: #000;
+
+            border-radius: 10px 10px 0 10px; 
+            border: 1px solid #fff;
+            margin: 5px 0 10px 50px;
+        }
+        .sideImg{
+            position: fixed;
+            left: 0;
+            top: auto;
+            z-index: -1;
+            mix-blend-mode: lighten;
+            max-height: 85vh;
+            max-width: 25vw;
+            opacity: 0.5;
+            margin: auto;
+        }
+        .sub{
+            color: #aaa;
+            font-size: 0.8em;
+        }
+        img{
+            cursor: pointer;
+            transition: scale 0.3s ease-in-out;
+        }
+        .scaleOnHover:hover{
+            scale: 110%;
+        }
+	a{
+            color: #fff;
+	}
+	.otherSosmed{
+		border: 2px solid white;
+		border-radius: 100px;
+		padding: 0 10px;
+	}
+        /* //mobile */
+        @media (max-width: 768px) { 
+            .main{
+                width: 80vw;
+                margin-bottom: min(20vh,25vw);
+                font-size: 3vw;
+            }
+            h1{
+                font-size: 10vw;
+                font-weight: 100;
+            }
+            .sideImg{
+                display: none;
+            }
+        }/* ============================================== imgViewer ============================================== */
+        .imgViewer{
+            position: fixed;
+            width: 100vw;
+            height: 100vh;
+            top: 0;
+            left: 0;
+        }
+        .imageWindow{
+            position: absolute;
+            width: 90vw;
+            height: 90vh;
+            object-fit: contain;
+            object-position: center;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+        }
+        .bgBlur{
+            position: absolute;
+            background-color:rgba(0,0,0,35%);
+            height: 100%;
+            width: 100%;
+            backdrop-filter: blur(3px);
+            -webkit-backdrop-filter: blur(3px); /* safari */
+        }
+        .hide{
+            display: none;
+        }
+    </style>
+    </head>
+        <body>
+            <!-- <img class="sideImg" src="asset/image/commision/pricetag.webp"> -->
+                <div class="main">
+                    <h1>commission</h1>
+                    <hr>
+                    <p>I will draw your desired character, dream waifu or original character pure from your creative idea, or any existing game, anime, movie character in anime style with ultra HD resolution</p>
+                    <p>Pricelist<br>
+                        <span class="sub">
+                            (Click to Zoom)
+                    </span></p>
+                    <div>
+			<img class="scaleOnHover" src="asset/image/commision/pricelistSmall.webp" alt="PRICELIST" loading="lazy" onclick="openImageViewer('asset/image/commision/pricelist.webp')">    
+                    </div>
+                    <p >Workflow<br>
+                        <span class="sub">
+                            (Click to Zoom)
+                    </span></p>
+                    <div>
+			<img class="scaleOnHover" src="asset/image/commision/workflowSmall.webp" alt="PRICELIST" loading="lazy" onclick="openImageViewer('asset/image/commision/workflow.webp')">
+                    </div>
+                    <p>
+			    <a href="http://tiny.cc/karunochi" target="_blank"><span class="otherSosmed"><img src="asset/logo/external Link/trello logo.png" style="height: 0.7em;"></span></a><br>
+			    <span class="sub">Feel free to check your commision's progress on my Trello</span>
+		    </p>
+            <p>
+			    <a href="https://vgen.co/karunochi" target="_blank"><span class="otherSosmed"><img src="asset/logo/external Link/vgen logo.png" style="height: 0.7em;"></span></a><br>
+			    <span class="sub">Request on Vgen for a special price!</span>
+		    </p>
+                    <p><span>
+                        <strong>What will you get?</strong><br>
+                        1. Full resolution 4093x2894 .png image file, printable up to A3<br> 
+                        2. Project file in .sai and/or .psd (Optional)<br> 
+                        3. Satisfaction
+                    </span></p>
+                    <p>
+                        <strong>FAQ:</strong><br>
+                            <div class="question">Do I need to send reference?</div>
+                            <div class="answer"  >Sending me reference is really encouraged, but you could always describe your character(s) only by words.</div>
+                        <br>
+                            <div class="question">Could you really understand my ideas and interpret it well?</div>
+                            <div class="answer"  >I have experienced in creating over 50 original characters come true!! I will always try my best to give what you want.</div>
+                        <br>
+                            <div class="question">Do you accept NSFW?</div>
+                            <div class="answer"  >Yes, except gore and hardcore sexualized art.</div>
+                        <br>
+                            <div class="question">What kind of character you can draw?</div>
+                            <div class="answer"  >I can draw human-form, nekomimi, anthro (humanoid with animal traits); I can NOT draw mecha and armored chara.</div>
+                    </p>
+                </div>
+            <div class="buttonContainer">
+                <div class="buttonSplitter">
+                    <button class="logoButton">
+                        <div class="KRNC">
+                            <img src="asset\logo\karunochi\other\LogoAnimation\cross.webp">
+                            <span class="KRNCmid vertical">
+                                <img src="asset\logo\karunochi\other\LogoAnimation\LetterH.webp"   class="KRNChild logogram rotate">
+                                <img src="asset\logo\karunochi\other\LogoAnimation\IconH.webp"     class="KRNChild logoIcon rotate">
+                            </span>
+                            <span class="KRNCmid horizontal">
+                                <img src="asset\logo\karunochi\other\LogoAnimation\LetterV.webp"   class="KRNChild logogram rotate">
+                                <img src="asset\logo\karunochi\other\LogoAnimation\IconV.webp"     class="KRNChild logoIcon rotate">
+                            </span>
+                        </div>
+                    </button>
+                    <button onclick="switchPage('./index.html');">
+                        <img class="mobile" src="asset\logo\menuLogo\home.webp" alt="Home">
+                        <span class="desktop">Home</span>
+                    </button>
+                    <button onclick="switchPage('./works.html');">
+                        <img class="mobile" src="asset\logo\menuLogo\works.webp" alt="Works">
+                        <span class="desktop">Works</span>
+                    </button>
+                    <button onclick="switchPage('./contact.html');"class="rightSideButton">
+                        <img class="mobile" src="asset\logo\menuLogo\contact.webp" alt="Contact">
+                        <span class="desktop">Contact</span>
+                    </button>
+                    <button class="rightSideButton" id="selectedButton" >
+                        <img class="mobile" src="asset\logo\menuLogo\commission.webp" alt="Commission">
+                        <span class="desktop">Commission</span>
+                    </button>
+                </div>
+            </div>
+	<div class="imgViewer hide">
+        	<div class="bgBlur"></div>
+        	<img class="imageWindow">
+        </div>
+        </body>
+        <script>
+            //transition
+            const contentTr = document.querySelector('.main');
+            contentTr.style.opacity = "0";
+            contentTr.style.transition = "opacity 0.5s";
+            setTimeout(()=>contentTr.style.opacity = "1",100);
+
+            function switchPage(newPage){
+                contentTr.style.opacity = "0";
+                setTimeout(()=>window.location.href = newPage,400)
+            }
+            window.addEventListener("pageshow",()=>{
+                contentTr.style.opacity = "1";
+            });
+        </script>
+    <script>
+        let root = document.documentElement;
+		const setValue = (varName,value) => root.style.setProperty(varName, value);
+        const getValue = (varName)       => getComputedStyle(root).getPropertyValue(varName);
+
+        // ================================ Rotate Logo ================================
+        const KRNC = document.querySelector('.KRNC')
+        const logogram = document.querySelectorAll('.logogram')
+        const logoIcon = document.querySelectorAll('.logoIcon')
+        KRNC.addEventListener('mouseover', () => {
+            logogram.forEach((img)=>{
+                img.style.transform = "rotate(90deg)";
+            })
+            logoIcon.forEach((img)=>{
+                img.style.transform = "rotate(0deg)";
+            })
+        });
+        KRNC.addEventListener('mouseout', () => {
+            logogram.forEach((img)=>{
+                img.style.transform = "rotate(0deg)";
+            })
+            logoIcon.forEach((img)=>{
+                img.style.transform = "rotate(-90deg)";
+            })
+        });
+	     // shared variable
+        let isOnImgViewer = false;
+        // ================================ image full display ================================
+                //onClick => openImageViewer(image.HDSrc)
+        let imageViewer = document.querySelector('.imgViewer');
+        let imageWindow = document.querySelector('.imageWindow');
+
+        
+        imageViewer.addEventListener('click', 
+            onClick => closeImageViewer()
+        );
+
+        function openImageViewer(imgSrc){
+            imageViewer.classList.remove('hide');
+            imageWindow.src = "";
+            imageWindow.src = imgSrc;
+            disableScroll();
+        }
+        function closeImageViewer(){
+            imageViewer.classList.add('hide');
+            enableScroll();
+        }
+        function disableScroll() {
+            scrollTop = window.pageYOffset;
+            scrollLeft = window.pageXOffset;
+
+            window.onscroll = function() {
+                window.scrollTo(scrollLeft, scrollTop);
+            };
+        }
+
+        function enableScroll() {
+            window.onscroll = function() {};
+        }
+    </script>
+    <div class="visitorCounter">
+        <a href='https://www.stat-counter.org/'>https://www.Stat-Counter.org</a> <script defer type='text/javascript' src='https://www.freevisitorcounters.com/auth.php?id=aa3b1e51e44619bb73688c5c710fbcd21032d75f'></script>
+        <script defer type="text/javascript" src="https://www.freevisitorcounters.com/en/home/counter/1056546/t/3"></script>
+    </div>
+</html>

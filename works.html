@@ -1,0 +1,1082 @@
+<!doctype html>
+<html class="notranslate" translate="no">   
+<head>
+    <meta charset="utf-8">
+	<meta http-equiv="content-language" content="en">
+    <title>karunochi</title>
+    <meta name="description" content="Heyo there! I love making comfy arts, currently a student stu-dying actuarial mathematics">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/x-icon" href="asset\logo\karunochi\other\iconLow.webp" />
+    <link rel="stylesheet" href="shared.css">
+    <script>
+        const gambar_pas_diklik_aja = false;
+        const waktu_ngilang = 4000;
+    </script>
+    <style>
+        :root{
+            --sideMenuWidth: 30%;
+            --galeryWidth: calc(100% - var(--sideMenuWidth));
+            --scroll: 0px;
+            
+            
+            --bgColor:#000;
+            /* --bgColor: #151215; */
+            --lineColor:#fff;
+            
+            --statScroll: 0px;
+            --normalImageWidth: 14vw;
+        }
+
+        body{
+            background-color: var(--bgColor);
+            color: white;
+            margin: 0;
+            padding: 0;
+            border: 0;
+            /* overflow-x: hidden; */
+            width: 98vw;
+            height: 100%;
+        }
+
+        .buttonContainer{
+                backdrop-filter: brightness(0.75);
+            }
+        
+        /* ============================================== imgViewer ============================================== */
+        .imgViewer{
+            position: fixed;
+            width: 100vw;
+            height: 100vh;
+            top: 0;
+            left: 0;
+        }
+        .imageWindow{
+            position: absolute;
+            width: 90vw;
+            height: 90vh;
+            object-fit: contain;
+            object-position: center;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+        }
+        .bgBlur{
+            position: absolute;
+            background-color:rgba(0,0,0,35%);
+            height: 100%;
+            width: 100%;
+            backdrop-filter: blur(3px);
+            -webkit-backdrop-filter: blur(3px); /* safari */
+        }
+        .hide{
+            display: none;
+        }
+
+        
+        /* ============================================== GALERY ============================================== */
+        /* img:hover{
+            position: relative;
+            transform: scale(120%, 120%) rotateY(0deg);
+            z-index:100;
+            transform-origin: top center;
+        } */
+        /* scrollCross */
+        .scrollCross{
+            position: fixed;
+            top: 0%;
+            left: 50%;
+            width: 35vw;
+            aspect-ratio: 1/1;
+            transform: translate(-50%,-25%);
+            /* mix-blend-mode: difference;z */
+        }
+        .rollCenter{
+            position: fixed;
+            top: 0%;
+            left: 50%;
+            width: 35vw;
+            aspect-ratio: 1/1;
+            transform: translate(-50%,-25%);
+        }
+        .rotation{
+            width: 35vw;
+            height: 35vw;
+            /* rotate: 30deg; */
+            transform-origin: 0% 25%;
+        }
+
+        .rotation img{
+            height: 12vw;
+            width: 12vw;
+            /* aspect-ratio: 1/1; */
+        }
+        .dot {
+            height: 7vw;
+            width: 7vw;
+            /* aspect-ratio: 1/1; */
+            background-color: #fff;
+            border-radius: 50%;
+        }
+
+        .crossTop{
+            position: absolute;
+            top: 0;
+            
+            left: 50%;
+            translate: -50% -50%;
+        }
+        .crossBottom{
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+
+            translate: -50% 50%;
+        }
+        .crossLeft{
+            position: absolute;
+            left: 0;
+            
+            top: 50%;
+            translate: -50% -50%;
+        }
+        .crossRight{
+            position: absolute;
+            right: 0;
+            
+            top: 50%;
+            translate: 50% -50%;
+        }
+
+        .rotated.crossRight{
+            rotate: -90deg;
+        }
+
+        /* ===============================music =================== */
+        .music{
+            position: absolute;
+            top: 100vh; 
+            right: 0; 
+            width: 100%; 
+            height: 275vh;
+        }
+        .music>img{
+            --imageWidth: 70%!important;
+        }
+        .music>img:hover{
+            transform: scale(100%)!important;
+            cursor: pointer;
+        }
+        .musicEnd{
+            position: absolute;
+            bottom: 0%;
+        }
+        /* banner */
+        .bannerBg{
+            /* background-color: #999; */
+            background-color: var(--bgColor);
+            /* background-color: #000; */
+        }
+        .bannerContainer{
+            overflow: hidden;
+            position: absolute;
+            z-index: -1;
+            height: 35vh;
+            width: 100%;
+            white-space: nowrap;
+        }
+        .musicStart{
+            font-size: 2.5em;
+        }
+
+        .musicLeft,.musicRight {
+            position: absolute;
+            top: 0;
+            width: 50%;
+            height: 100%;
+            cursor: pointer;
+        }
+
+        .musicLeft {
+            left: 0;
+        }
+
+        .musicRight {
+            right: 0;
+        }
+
+        .illustration img{
+            transition: top 0.015s;
+        }
+		.nsfw{
+			filter: blur(15px);
+		}
+		.nsfw:hover{
+			filter: blur(0px);
+		}
+        /* ============================================== SCROLLBAR ============================================== */
+
+        /* ============================== sosmed ============================ */
+        .sosmedContainer{
+            top: 0;
+            right: 0;
+            position:fixed;
+            display: grid;
+        }
+        .sosmedContainer img{
+            width: 12vw;
+            margin: 1vw 1vw 0 0;
+            cursor: pointer;
+        }
+        /* ============================================== DESKTOP ============================================== */
+        @media (min-width: 768px) {
+            /* ============================================== SIDE MENU ============================================== */
+            .sideMenu{
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: var(--sideMenuWidth);
+                height: 100%;
+                overflow: hidden;
+                background-color: #000;
+            }
+            /* ======================= background ======================= */
+            .bgDarken{
+                position: absolute;
+                background-color:rgba(0,0,0,50%);
+                height: 100%;
+                width: 100%;
+            }
+            .sideMenu>img{
+                position: absolute;
+                height: 50%;
+                left: 50%;
+				bottom:25%;
+                transform: translateX(-50%);
+				image-rendering: pixelated;
+                /* mix-blend-mode: difference; */
+            }
+            /* ======================= border text ======================= */
+            .border{
+                --borderSize: 1vw;
+                position: absolute;
+                top: 1%;
+                right: 0;
+                width: var(--borderSize);
+                font-size: var(--borderSize);
+                height: 82%;
+                overflow: hidden;
+            }
+            .statsContainer {
+                white-space: nowrap;
+                transform: rotate(90deg) translateX(var(--statScroll));
+            }
+            
+            .music>img{
+                --imageWidth: 40%!important;
+            }
+            /* ======================= Selection ======================= */
+            .selectSection{
+                position: absolute;
+                font-size: 1.75vw;
+                margin-top: 20%;
+                margin-left: 20%;
+            }
+            .bigger{
+                font-weight: bold;
+                font-size: 1.5em;
+                margin: 5px;
+            }
+
+            /* ======== Button ======== */
+            .selectSection a{
+                color:#bbb;
+                text-decoration: inherit; /* no underline */
+            }
+            a:hover{
+                color:#fff;
+                text-decoration: inherit; /* no underline */
+                cursor: pointer;
+            }
+
+            /* ============================================== GALERY ============================================== */
+            .askarMTopCollection2010{
+                position: absolute;
+                width: var(--galeryWidth);
+                right: 0;
+            }
+            .illustration{
+                width: 100%;
+            }
+            .illustration img{
+                transition: transform 0.2s ease-in-out;
+                transform-origin: center;
+            }
+            .illustration img:hover{
+                /* transform: scale(100%)!important; */
+                transform: scale(calc(1.15% * var(--randomZ)))!important;
+                z-index:-1!important;
+                /* cursor: zoom-in; */
+                cursor: pointer;
+            }
+            /* ============================================== DRAWING ============================================== */
+            .showOverflow{
+                width: 10%;
+                overflow: visible;
+            }
+            .svgContainer{
+                margin: 0;
+                padding: 0;
+                position: absolute;
+                z-index: -100;
+                height: 600vh;
+                width: 100vw;
+                top: 0;
+                right: 0;
+            }
+            svg{
+                background-color: var(--bgColor);
+                transform: scale(var(--svgScale)); /* Set the desired scale factor */
+                image-rendering: optimizeSpeed; /* Older versions of Chrome and Safari */
+                image-rendering: -moz-crisp-edges; /* Firefox */
+                image-rendering: -webkit-optimize-contrast; /* Webkit (Chrome, Safari) */
+                image-rendering: -o-crisp-edges; /* Opera */
+                image-rendering: pixelated; /*CSS4*/
+                -ms-interpolation-mode: nearest-neighbor; /* IE (non-standard property) */
+                height: 100%;
+                width: 100%;
+            }
+            polyline{
+                transform: scale(var(--svgScale)); /* Set the desired scale factor */
+            }
+
+            /* ============================== sosmed ============================ */
+            .sosmedContainer{
+                position:fixed;
+                display: flex;
+				right: auto;
+                /* mix-blend-mode:difference; */
+                /* background-color:#0003 ; */
+            }
+            .sosmedContainer img{
+                width: 3vw;
+                margin-top: 1vw;
+                margin-left: 1vw;
+                cursor: pointer;
+            }
+        }
+    </style>
+</head>
+<body id="illustration">
+    
+    <div class="main">
+    <div class="desktop hideOverflow">
+        <div class="svgContainer">
+            <svg shape-rendering="crispEdges">
+                <polyline points=""
+                style="fill:none;stroke:var(--lineColor);stroke-width:0.5" shape-rendering="pixelated" />
+            </svg>
+        </div>
+    </div>
+    <div class="sideMenu desktop fixed">
+        <img src="asset\video\scrabble.gif" style="opacity: 1;">
+        <div class="bgDarken"></div>
+        <div class="selectSection">
+            <p class="bigger">works</p>
+            <a href="#illustration">※illustration</a><br>
+            <a href="#music">※music</a>
+        </div>
+        <div class="border">
+            <div class="statsContainer">
+                <span class="stats">
+                    windowSize : 1080x720 | scrollDistance : 0px |  timeElapsed :  0s | section : works | 
+                </span>
+                <span class="stats"></span><span class="stats"></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="askarMTopCollection2010">
+        <div class="illustration"></div>
+            <div class="bannerContainer">
+                <div class="bannerBg">
+                    <div class="banner illustEndContainer">
+                        <span class="illustEnd">end of illustration section | </span>
+                        <span class="illustEnd"></span><span class="illustEnd"></span><span class="illustEnd"></span><span class="illustEnd"></span>
+                        <span class="illustEnd"></span><span class="illustEnd"></span><span class="illustEnd"></span><span class="illustEnd"></span>
+                    </div>
+                </div>
+            <div class="bannerBg">
+                <div class="banner musicStartContainer">
+                    <span class="musicStart">start of music section | </span>
+                    <span class="musicStart"></span><span class="musicStart"></span><span class="musicStart"></span>
+                    <span class="musicStart"></span><span class="musicStart"></span><span class="musicStart"></span>
+                    <span class="musicStart"></span><span class="musicStart"></span><span class="musicStart"></span>
+                </div>
+            </div>
+        </div>
+        <div id="music" class="music">
+            <div class="musicEnd"></div>
+        </div>
+        <div class="sosmedContainer">
+            <img src="asset/logo/works link/pixiv.webp" onclick="window.open('https://www.pixiv.net/en/users/38281961', '_blank');" alt="pixiv">
+            <img src="asset/logo/works link/twitter.webp" onclick="window.open('https://twitter.com/karunochi', '_blank');" alt="twitter">
+            <img src="asset/logo/works link/youtube.webp" onclick="window.open('https://www.youtube.com/@karunochii', '_blank');" alt="youtube">
+        </div>
+    </div>
+
+    <div class="scrollCross mobile">
+        <img class="rollCenter"src="asset\logo\Works Roll\scrollCross.png">
+        <div class="rotation rollCenter">
+            <img class="rotated crossBottom" src="asset\logo\Works Roll\roll-illustration.webp">
+            <img class="rotated crossRight" src="asset\logo\Works Roll\roll-music.webp">
+            <div class="rotated dot crossTop"></div>
+            <div class="rotated dot crossLeft"></div>
+        </div>
+    </div>
+</div>
+    
+    <div class="buttonContainer">
+        <div class="buttonSplitter">
+            <button class="logoButton">
+                <div class="KRNC">
+                    <img src="asset\logo\karunochi\other\LogoAnimation\cross.webp">
+                    <span class="KRNCmid vertical">
+                        <img src="asset\logo\karunochi\other\LogoAnimation\LetterH.webp"   class="KRNChild logogram rotate">
+                        <img src="asset\logo\karunochi\other\LogoAnimation\IconH.webp"     class="KRNChild logoIcon rotate">
+                    </span>
+                    <span class="KRNCmid horizontal">
+                        <img src="asset\logo\karunochi\other\LogoAnimation\LetterV.webp"   class="KRNChild logogram rotate">
+                        <img src="asset\logo\karunochi\other\LogoAnimation\IconV.webp"     class="KRNChild logoIcon rotate">
+                    </span>
+                </div>
+            </button>
+            <button onclick="switchPage('./index.html');">
+                <img class="mobile" src="asset\logo\menuLogo\home.webp" alt="Home">
+                <span class="desktop">Home</span>
+            </button>
+            <button id="selectedButton">
+                <img class="mobile" src="asset\logo\menuLogo\works.webp" alt="Works">
+                <span class="desktop">Works</span>
+            </button>
+            <button class="rightSideButton" onclick="switchPage('./contact.html');">
+                <img class="mobile" src="asset\logo\menuLogo\contact.webp" alt="Contact">
+                <span class="desktop">Contact</span>
+            </button>
+            <button class="rightSideButton" onclick="switchPage('./commission.html');">
+                <img class="mobile" src="asset\logo\menuLogo\commission.webp" alt="Commission">
+                <span class="desktop">Commission</span>
+            </button>
+        </div>
+    </div>
+    <div class="imgViewer hide">
+        <div class="bgBlur"></div>
+        <img class="imageWindow">
+        <!-- <div class="viewerWindow">
+            <button class="previousImage" onclick="">
+                <img class="mobile" src="" alt="">
+            </button>
+            <img class="imageDisplay">
+            <button class="previousImage" onclick="">
+                <img class="mobile" src="" alt="">
+            </button>
+        </div> -->
+    </div>
+    <script>
+        //transition
+        const contentTr = document.querySelector('.main');
+        contentTr.style.opacity = "0";
+        contentTr.style.transition = "opacity 0.5s";
+            setTimeout(()=>contentTr.style.opacity = "1",100);
+
+        function switchPage(newPage){
+            contentTr.style.opacity = "0";
+            setTimeout(()=>window.location.href = newPage,400)
+        }
+        window.addEventListener("pageshow",()=>{
+            contentTr.style.opacity = "1";
+        });
+    </script>
+    <script>
+        //request client - turn off right click
+
+        const root = document.documentElement;
+		const setValue  = (varName,value)   => root.style.setProperty("--"+varName, value);
+        const getValue  = (varName)         => getComputedStyle(root).getPropertyValue("--"+varName);
+        const random    = (start,end) =>  (start + Math.random() * (end-start));
+        const randomInt = (start,end) =>  Math.floor((start + Math.random() * (end-start)));
+
+        let openedOnMobile = window.matchMedia('(max-width: 767px)').matches;
+
+
+        // shared variable
+        let isOnImgViewer = false;
+        // ================================ Stats updater ================================
+        let stats = document.querySelectorAll('.stats');
+        let statsContainer = document.querySelector('.statsContainer');
+        let statWidth = stats[0].offsetWidth;
+
+        const addTrailingZeros = (num, totalLength) => String(num).padStart(totalLength, '0');
+        let timeElapsed = 0;
+        
+        let statScroll = 0;
+
+        function currentTime(){
+            let now = new Date();
+            let hours = now.getHours();
+            let minutes = now.getMinutes();
+            let formattedHours = addTrailingZeros(hours,2);
+            let formattedMinutes = addTrailingZeros(minutes,2);
+            return `${formattedHours}:${formattedMinutes}`;
+        }
+
+        function updateStats() {
+            statWidth = stats[0].offsetWidth;
+            stats.forEach((span) => {
+                span.textContent = ""+
+                `windowSize : ${window.innerWidth}x${window.innerHeight} | `+
+                `scrollDistance : ${addTrailingZeros(Math.round(window.scrollY),4)}px | `+
+                `currentTime : ${currentTime()} | `+
+                `timeElapsed : ${addTrailingZeros(timeElapsed,3)}s | `+
+                `section : works | `;
+            });
+        }
+        updateStats();
+
+        //Scroll stats
+        setInterval(()=>{
+            statWidth = stats[0].offsetWidth;
+            statScroll = (statScroll - 1) % statWidth;
+            setValue("statScroll",statScroll+"px");
+        }, 50);
+
+        //Clock stat
+        setInterval(()=>{
+            timeElapsed++; 
+            updateStats();
+        }, 1000);
+        window.addEventListener('scroll', updateStats);
+        
+        window.addEventListener('resize', ()=>{
+            setTimeout(()=>{
+                statScroll = 0;
+                setValue("statScroll",statScroll+"px");
+            },100)
+        })
+        
+        // ================================ banner scroller ================================
+        let bannerList = [".illustEnd",".musicStart"];
+        bannerList.forEach((bannerName,index,a)=>{
+                let spans = document.querySelectorAll(bannerName);
+                let mainSpan = spans[0];
+                let spanWidth = mainSpan.offsetWidth;
+                let spanText =  mainSpan.innerHTML;
+                let bannerScroll = randomInt(0,-50);
+                let container = mainSpan.parentNode;
+                let bgColor = container.parentNode;
+                // mainSpan.style.setProperty("--scroll", value);
+
+                spans.forEach(
+                    span => span.innerHTML = spanText
+                )
+                bgColor.style.transform=`rotate(${index*16 - 8}deg) translateY(12vh) scale(110%)`;
+                container.style.transform=`translateX(var(--bannerScroll))`;
+                setInterval(()=>{
+                    spanWidth = mainSpan.offsetWidth;
+                    bannerScroll = (bannerScroll - (index+1)) % spanWidth;
+                    container.style.setProperty("--bannerScroll",bannerScroll+"px");
+                },50);
+            }
+        )
+        // ================================ Smooth href ================================
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // ================================ Rotate Logo ================================
+        const KRNC = document.querySelector('.KRNC')
+        const logogram = document.querySelectorAll('.logogram')
+        const logoIcon = document.querySelectorAll('.logoIcon')
+        KRNC.addEventListener('mouseover', () => {
+            logogram.forEach((img)=>{
+                img.style.transform = "rotate(90deg)";
+            })
+            logoIcon.forEach((img)=>{
+                img.style.transform = "rotate(0deg)";
+            })
+        });
+        KRNC.addEventListener('mouseout', () => {
+            logogram.forEach((img)=>{
+                img.style.transform = "rotate(0deg)";
+            })
+            logoIcon.forEach((img)=>{
+                img.style.transform = "rotate(-90deg)";
+            })
+        });
+        
+        // ================================ image galery ================================
+        let illustrationSect = document.querySelector('.illustration');
+        let musicSect = document.querySelector('.music');
+        let bannerContainer = document.querySelector('.bannerContainer');
+        let artworkTemplate = document.createElement("img");
+        let usedY = 0;
+        let usedX = 0;
+        let randomY = 0;
+        let randomX = 0;
+        let randomZ = 0;
+        let normalImgWidth = 40;//%
+
+        let musicSectOffset = 50 //vh
+        const addUsedY = amount=>{
+            usedY += amount;
+            musicSect.style.top = `calc(${usedY}vw + ${musicSectOffset}vh)`;
+            bannerContainer.style.top = `calc(${usedY}vw + ${musicSectOffset * 2/3}vh)`;
+			document.querySelector('.svgContainer').style.height = `calc(${usedY}vw + ${musicSectOffset + 100}vh)`;
+        }
+        
+        let artwork = [];
+		//const gambarSFW = 26;
+	//	const gambarNSFW = 3;
+//		const totalGambar = gambarSFW+gambarNSFW;
+		const totalGambar = 30;
+		
+//		let i;
+        for(let i=1;i<=totalGambar;i++){
+            const j = {
+                lowSrc	: `asset/frontImage/SD/${i}.webp`,
+                HDSrc	: `asset/frontImage/HD/${i}.webp`,
+				//isNSFW	: false,
+            };
+            artwork.push(j);
+        }
+//        for(i=i;i<=totalGambar;i++){
+  //          const j = {
+    //            lowSrc	: `asset/frontImage/SD/berutal/${i}.webp`,
+      //          HDSrc	: `asset/frontImage/HD/${i}.webp`,
+		//		isNSFW	: true,
+    //        };
+  //          artwork.push(j);
+//        }
+
+        artworkTemplate.src = `asset/frontImage/SD/1.webp`,
+        artworkTemplate.style.position = "absolute";
+        artworkTemplate.style.top = usedY + "px" ;
+        artworkTemplate.style.setProperty("--imageWidth", "40%"); //later set this to 1/aspect ratio = x/y * 40%
+        artworkTemplate.style.width = "var(--imageWidth)";
+        // artworkTemplate.style.transition = "top 0.5s cubic-bezier(0.000, 0.500, 1.000, 0.500);";
+        artworkTemplate.style.transition = "top 0.1s ease-in-out;";
+        // artworkTemplate.setAttribute("loading", "lazy");
+        // artworkTemplate.setAttribute("oncontextmenu", "return false;");
+        
+        randomY = randomInt(1, 5);
+        if(openedOnMobile){
+            //add space for rotatingCross
+            randomY += 14
+        }
+        addUsedY(randomY);
+        artwork.forEach(image => {
+            randomX = random(0.3,0.7);
+            usedX = (usedX + randomX) % 1
+            randomZ = randomInt(50, 90);
+            const scrollSpeed = (randomZ-50)/-25;   //  = 0to30 /-30 = 0to-1
+            const curUsedY = usedY;
+
+            let img = artworkTemplate.cloneNode();
+
+            img.src = image.lowSrc;
+            img.style.zIndex = randomZ-100;
+            img.style.left = `calc((100% - var(--imageWidth)) * ${usedX})` ;
+            img.style.top = `calc( ${usedY}vw + var(--scroll)*${scrollSpeed} - ${usedY}vw*${scrollSpeed})`;
+            if(openedOnMobile){
+                img.style.top = usedY + "vw" ;
+            }
+
+            img.style.setProperty("--randomZ", randomZ);
+            img.style.transform = `scale(calc(1% * var(--randomZ)))`;
+			
+			if(image.isNSFW){
+				img.classList.add("nsfw");
+				console.log("ada bokepc coy");
+			}
+
+            img.addEventListener('click', 
+                onClick => openImageViewer(image.HDSrc)
+            );
+            img.addEventListener('load',
+            onLoad => { 
+                img.style.setProperty("--imageWidth", 45 * Math.sqrt(img.offsetWidth/img.offsetHeight) + "%");
+            });
+
+            // window.addEventListener('scroll', ()=>{
+            //     img.style.top = curUsedY*window.innerWidth/100 - curUsedY*window.innerWidth/100*scrollSpeed + window.scrollY*scrollSpeed + "px";
+            //     console.log(curUsedY*window.innerWidth/100 - curUsedY*window.innerWidth/100*scrollSpeed + window.scrollY*scrollSpeed);
+            // });
+
+            illustrationSect.appendChild(img);
+
+            randomY = randomInt(18, 20);
+            if(openedOnMobile){randomY += 12}
+            addUsedY(randomY);
+        })
+        
+        const updateScrollValue = (event) => {
+            setValue('scroll', window.scrollY + "px");
+        };
+
+        window.addEventListener('scroll', updateScrollValue);
+        
+        // ================================ Music Gallery =============================
+        let youtubeId = ["PLBMNSwkiIM","bB5V2IFRsjI","nKrineJ8vOM","Lc7WfsGBBJ8","MM0JaLumZjo"]
+        let musicTemplate = document.createElement("img");
+        let musicUsedY = 0;
+
+        let music = []
+        youtubeId.forEach(id => {
+            const i = {
+                youtubeLink : `https://youtu.be/${id}?t=0s`,
+                audio       : `asset/music/audio/${id}.mp3`,
+                gifImgSrc    : `asset/music/gif/${id}.gif`,
+                // SDImgSrc    : `https://img.youtube.com/vi/${id}/sddefault.jpg`,
+                // MQImgSrc    : `https://img.youtube.com/vi/${id}/mqdefault.jpg`,
+                // HQImgSrc    : `https://img.youtube.com/vi/${id}/hqdefault.jpg`,
+                // bestImgSrc  : `https://img.youtube.com/vi/${id}/maxresdefault.jpg`,
+            }; 
+            music.push(i);
+        });
+        (() => { // for variable scoping
+            const id = "OuDHdk8zmMU";
+            const storyWEnd = {
+                youtubeLink: `https://youtu.be/${id}?t=0s`,
+                audio: `asset/music/audio/${id}.mp3`,
+                gifImgSrc    : `asset/music/gif/${id}.gif`,
+                // SDImgSrc: `asset/music/StoryWEnd.gif`,
+                // MQImgSrc: `asset/music/StoryWEnd.gif`,
+                // HQImgSrc: `asset/music/StoryWEnd.gif`,
+                // BestImgSrc: `asset/music/StoryWEnd.gif`,
+            }; 
+            music.push(storyWEnd);
+        })();
+
+
+        imgWidth = 50; //vw
+        
+        musicTemplate.src = "",
+        musicTemplate.style.position = "absolute";
+        musicTemplate.style.top = "0px" ;
+        musicTemplate.style.setProperty("--imageWidth", imgWidth+"vw"); //later set this to 1/aspect ratio = x/y * 40%
+        musicTemplate.style.width = "var(--imageWidth)";
+        // musicTemplate.setAttribute("oncontextmenu", "return false;");
+        // musicTemplate.style.setProperty("--imageWidth", "40%"); //later set this to 1/aspect ratio = x/y * 40%
+        // musicTemplate.style.width = "var(--imageWidth)";
+        // musicTemplate.setAttribute('mouseIsInside', 'false');
+
+        const adjustMusicSectSize = ()=>{
+            if(window.innerWidth < 780){
+                musicSect.style.height = (100 * 9/16 * music.length)+"vw";
+            }else{
+                musicSect.style.height = (imgWidth * 9/16 * music.length)+"vw";
+            }
+        }
+        window.addEventListener('resize', adjustMusicSectSize)
+
+        // let musicUiOnPause = "asset/music/hover.png";
+        // let musicUiOnPlay = "asset/music/hoverPause.png";
+        let musicUiOnPlay = "asset/music/UI/onPlay.webp";
+        let musicUiOnPause = "asset/music/UI/onPause.webp";
+
+        let currentlyPlaying
+        function turnVolume(Audio, to, time/*in ms*/){
+            let step = 50;
+            let percent = step/time
+            if(percent >= 1){
+                Audio.volume = to;
+                if(to == 0){
+                    Audio.currentTime = 0;
+                    Audio.pause()
+                }
+                return;
+            }
+            let newVolume = Audio.volume + (to-Audio.volume)*percent
+            Audio.volume = newVolume;
+            
+            setTimeout(onNextStep => turnVolume(Audio, to, time-step),step);
+        }
+
+        imageHeight = 100/(music.length+2);
+        
+        music.forEach((music, index, arr) => {
+            randomX = random(0.3,0.6);
+            usedX = (usedX + randomX) % 1
+            randomZ = randomInt(50, 90);
+            audioFadeIn = 600;
+            audioFadeOut = 300;
+
+            let img = musicTemplate.cloneNode();
+
+            img.src = music.gifImgSrc;
+            img.style.top = `${(index+1) * imageHeight}%`;
+            img.style.left = `calc((100% - var(--imageWidth)) * ${usedX})` ;
+            // img.style.filter = "blur(0px)";
+
+            let ui = img.cloneNode();
+            ui.src = musicUiOnPause;
+            ui.style.transition = "opacity 0.5s ease-in-out";
+            ui.style.opacity = 0;
+            ui.style.backgroundColor = "#fff3";
+            // ui.style.backdropFilter = "blur(3px)";
+            ui.style.outline= "1px solid #888";
+
+            let song = new Audio(music.audio);
+            song.volume = 0;
+
+            
+            img.addEventListener('load',
+            onLoad => {
+                ui.style.width = img.offsetWidth + "px";
+                ui.style.height = img.offsetHeight + "px";
+                // img.style.width = img.offsetWidth-4 + "px";
+                // img.style.height = img.offsetHeight-1 + "px";
+            });
+
+            let turn = 0;
+            
+            ui.addEventListener('click', 
+                function(event) {
+                    console.log(event);
+                    const elementRect = event.target.getBoundingClientRect();
+                    const elementLeft = elementRect.left;
+                    const elementWidth = elementRect.width;
+                    const clickX = event.clientX;
+
+                    // Calculate the center of the element
+                    const elementCenter = elementLeft + elementWidth / 2;
+
+                    // Compare the click position with the element center
+                    if (clickX < elementCenter || currentlyPlaying != song && (event instanceof TouchEvent || event.pointerType === 'touch' || event.pointerType === 'pen')) {
+                        // let mouseIsInside = ui.getAttribute("mouseIsInside");
+                        if(song.paused){
+                            try{ if(currentlyPlaying != song)
+                                turnVolume(currentlyPlaying, 0, audioFadeOut)
+                            } catch{}
+                            currentlyPlaying = song;
+                            song.play();
+                            song.volume = 0;
+                            turnVolume(song,1,audioFadeIn);
+                            ui.src = musicUiOnPlay;
+                        }else{
+                            ui.src = musicUiOnPause;
+                            turnVolume(song,0,audioFadeOut)
+                        }
+                    } else {
+                        window.open(music.youtubeLink, '_blank');
+			turnVolume(currentlyPlaying,0,audioFadeOut)
+                    }
+                }
+            );
+            ui.addEventListener('mouseover',
+                showButton => {    
+                    ui.src = song.paused ? musicUiOnPause : musicUiOnPlay;
+                    ui.style.opacity = 1;
+                    // img.style.width = img.offsetWidth-1 + "px";
+                    // img.style.height = img.offsetHeight-1 + "px";
+                    // img.style.filter = "blur(3px)";
+                    // ui.setAttribute('mouseIsInside', 'true');
+            });
+
+            ui.addEventListener('mouseout',
+                hideButton => {    
+                    ui.style.opacity = 0;
+                    // img.style.width = img.offsetWidth+1 + "px";
+                    // img.style.height = img.offsetHeight+1 + "px";
+                    img.style.filter = "blur(0px)";
+                    // ui.src = music.gifImgSrc;
+                    // ui.setAttribute('mouseIsInside', 'false');
+            });
+            // ui.addEventListener('click', 
+            //     onClick => window.open(music.youtubeLink, '_blank')
+            // )
+            // ui.addEventListener('mouseover',
+            //     async play => {
+            //         song.play();
+            //         turnVolume(1,audioFadeIn);
+            // });
+
+            // ui.addEventListener('mouseout', 
+            //     stop => turnVolume(0,audioFadeOut)
+            // );
+
+            musicSect.appendChild(img);
+            musicSect.appendChild(ui);
+        });
+        
+        // ================================ image full display ================================
+        let roll = document.querySelector('.rotation');
+        let illustScrollPercent = 0.0;
+        const musicEnd = document.querySelector(".musicEnd");
+        const illustrationHeight = () => usedY/100*window.innerWidth;
+        const sectionGap = () => musicSectOffset*window.innerHeight/100;
+
+        let illustRotDeg = 0;
+        let transisitionRotDeg = 90;
+        let musicRotDeg = 0;
+
+        window.addEventListener('scroll', ()=>{
+            let currentIllustrationHeight = illustrationHeight()
+            let currentSectionGap = sectionGap()
+            illustScrollPercent = window.scrollY / currentIllustrationHeight;
+            if(illustScrollPercent <= 1){
+                roll.style.rotate = `${illustScrollPercent*illustRotDeg}deg`;
+                return
+            }
+            
+            let toMusicScrollPercent = (window.scrollY - currentIllustrationHeight) / currentSectionGap;
+
+            if(toMusicScrollPercent <= 1){
+                roll.style.rotate = `${illustRotDeg + toMusicScrollPercent*transisitionRotDeg}deg`;
+                return
+            }
+            let musicHeight = musicEnd.offsetTop-window.innerHeight;
+            let MusicScrollPercent = (window.scrollY - currentIllustrationHeight - currentSectionGap) / musicHeight;
+            
+            roll.style.rotate = `${illustRotDeg + transisitionRotDeg + MusicScrollPercent*musicRotDeg}deg`;
+            document.querySelector('.svgContainer').style.height = `${musicEnd.offsetTop + currentIllustrationHeight + currentSectionGap}px`;
+            document.querySelector('svg').style.height = `${musicEnd.offsetTop + currentIllustrationHeight + currentSectionGap}px`;
+        });
+        
+        // ================================ mobile scroll button ================================
+        const musicY = () => document.querySelector('#music').getBoundingClientRect().top;
+        const destination = () => window.scrollY >= musicY() ? "#illustration" : "#music";
+        const scrollCross = document.querySelector(".scrollCross");
+
+        scrollCross.addEventListener('click', 
+            onClick => {
+                document.querySelector(destination()).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            }
+        );
+        // ================================ image full display ================================
+        let imageViewer = document.querySelector('.imgViewer');
+        let imageWindow = document.querySelector('.imageWindow');
+
+        
+        imageViewer.addEventListener('click', 
+            onClick => closeImageViewer()
+        );
+
+        function openImageViewer(imgSrc){
+            imageViewer.classList.remove('hide');
+            imageWindow.src = "";
+            imageWindow.src = imgSrc;
+            disableScroll();
+        }
+        function closeImageViewer(){
+            imageViewer.classList.add('hide');
+            enableScroll();
+        }
+        function disableScroll() {
+            scrollTop = window.pageYOffset;
+            scrollLeft = window.pageXOffset;
+
+            window.onscroll = function() {
+                window.scrollTo(scrollLeft, scrollTop);
+            };
+        }
+
+        function enableScroll() {
+            window.onscroll = function() {};
+        }
+        // ================================ Line Drawing ================================
+        const svg = document.querySelector('svg');
+
+        let mousePos = [];
+        let mouseStillDown = false;
+        const drawOnMouseDown = gambar_pas_diklik_aja;
+        const lineMinLen = 0;
+
+        let lastPos = [-999,-999];
+
+        function addMousePos(evt) {
+            if(!mouseStillDown && drawOnMouseDown){
+                return;
+            }
+            const rect = svg.getBoundingClientRect();
+            const mouseX = (evt.clientX - rect.left);
+            const mouseY = (evt.clientY - rect.top)
+            lastPos = [mouseX, mouseY-window.scrollY];
+            addLinePoint([mouseX, mouseY]);
+        }
+
+        function addMouseScrollPos(evt) {
+            if(drawOnMouseDown){
+                return;
+            }
+            // console.log(lastPos);
+            const mouseX = lastPos[0];
+            const mouseY = lastPos[1];
+            addLinePoint([mouseX, mouseY+window.scrollY]);
+        }
+
+        const fadeTime = waktu_ngilang;
+        function addLinePoint(newCoor){
+            mousePos.push(newCoor);
+            updateLine();
+            setTimeout(eraseLinePoint,fadeTime);
+        }
+
+        function eraseLinePoint(){
+            mousePos.shift();
+            updateLine();
+        }
+
+        function updateLine(){
+            let formattedPos = "";
+            mousePos.forEach((coor) => {
+                formattedPos += `${coor[0]},${coor[1]} `;
+            });
+            // ubah jadi node ntar | ubah jadi node ntar | ubah jadi node ntar | ubah jadi node ntar | ubah jadi node ntar | ubah jadi node ntar
+            svg.innerHTML = `
+            <polyline 
+                points="${formattedPos}" 
+                style='
+                    fill : none;
+                    stroke : var(--lineColor);
+                    stroke-width : 0.5;
+                    shape-rendering : "pixelated";
+                ' />
+            `;
+        }
+
+        window.addEventListener('scroll', addMouseScrollPos);
+        window.addEventListener('mousemove', addMousePos);
+        window.addEventListener('mousedown', (evt)=>{
+            mouseStillDown = true;
+        });
+        window.addEventListener('mouseup', (evt)=>{
+            mouseStillDown = false;
+        });
+    </script>	
+    
+    <div class="visitorCounter">
+        <a href='https://www.stat-counter.org/'>https://www.Stat-Counter.org</a>
+        <script type="text/javascript">
+            function loadAfterImages() {
+              // Put the code you want to execute after all images are loaded here
+              // For example:
+              var script1 = document.createElement("script");
+              script1.src = "https://www.freevisitorcounters.com/auth.php?id=02b035ed6127be0718ff7f22040fef3984665f2f";
+              document.body.appendChild(script1);
+          
+              var script2 = document.createElement("script");
+              script2.src = "https://www.freevisitorcounters.com/en/home/counter/1056543/t/0";
+              document.body.appendChild(script2);
+            }
+            window.onload = loadAfterImages;
+          </script>
+    </div>
+</body>
+</html>

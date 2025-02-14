@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html class="notranslate" translate="no">   
+    <head>
+        <meta charset="utf-8">
+	    <meta http-equiv="content-language" content="en">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>karunochi</title>
+        <meta name="description" content="Heyo there! I love making comfy arts, currently a student stu-dying actuarial mathematics">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="shortcut icon" type="image/x-icon" href="asset\logo\karunochi\other\iconLow.webp" />
+        <style>
+            :root{
+            --bgColor:#000;
+            /* --bgColor: #151215; */
+            --lineColor:#fff;
+            }
+            body{
+                background-color: var(--bgColor);
+                color: white;
+                padding: 0;
+                border: 0;
+                overflow: hidden;
+                width: 100vw;
+                height: 100vh;
+            }
+
+            .buttonContainer{
+                backdrop-filter: brightness(0.5);
+                /* scrollbar adjustment  */
+                translate: -5px 0;
+            }
+            svg{
+                background-color: #0000;
+                /* var(--bgColor); */
+                image-rendering: optimizeSpeed; /* Older versions of Chrome and Safari */
+                image-rendering: -moz-crisp-edges; /* Firefox */
+                image-rendering: -webkit-optimize-contrast; /* Webkit (Chrome, Safari) */
+                image-rendering: -o-crisp-edges; /* Opera */
+                image-rendering: pixelated; /*CSS4*/
+                -ms-interpolation-mode: nearest-neighbor; /* IE (non-standard property) */
+                height: 500px;
+                width: 500px;
+                
+                max-height:100vh;
+                max-width: 100vw;
+            }
+            polyline{
+                transform-origin: 0 center;
+            }
+            .center{
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%) ;
+                max-height:100vh;
+                max-width: 100vw;
+                transform-origin: center center;
+            }
+            .tombolSosmed{
+                position: absolute;
+                top: 0%;
+                left: 0%;
+                mix-blend-mode: difference;
+            }
+            .unhoveredSosmed{
+                opacity: 0.5;
+            }
+        </style>
+        <link rel="stylesheet" href="shared.css">
+    </head>
+        <body><div class="main">
+            <div class="center">
+                <svg shape-rendering="crispEdges">
+                    <polyline points=""
+                    style='
+                    fill : none;
+                    stroke : var(--lineColor);
+                    stroke-width : 0.5;
+                    shape-rendering : "pixelated";' />
+                </svg>
+            </div>
+            <div class="center sosmedContainer">
+                <img class="tombolSosmed up" src="asset/logo/contactButton/twitter.webp">
+                <img class="tombolSosmed left" src="asset/logo/contactButton/instagram.webp">
+                <img class="tombolSosmed right" src="asset/logo/contactButton/gmail.webp">
+                <img class="tombolSosmed down" src="asset/logo/contactButton/discord.webp">
+                <img src="asset/logo/contactButton/blank.webp"><!-- for sizing and positioning the div -->
+            </div></div>
+                
+            <div class="buttonContainer">
+                <div class="buttonSplitter">
+                    <button class="logoButton">
+                        <div class="KRNC">
+                            <img src="asset\logo\karunochi\other\LogoAnimation\cross.webp">
+                            <span class="KRNCmid vertical">
+                                <img src="asset\logo\karunochi\other\LogoAnimation\LetterH.webp"   class="KRNChild logogram rotate">
+                                <img src="asset\logo\karunochi\other\LogoAnimation\IconH.webp"     class="KRNChild logoIcon rotate">
+                            </span>
+                            <span class="KRNCmid horizontal">
+                                <img src="asset\logo\karunochi\other\LogoAnimation\LetterV.webp"   class="KRNChild logogram rotate">
+                                <img src="asset\logo\karunochi\other\LogoAnimation\IconV.webp"     class="KRNChild logoIcon rotate">
+                            </span>
+                        </div>
+                    </button>
+                    <button onclick="switchPage('./index.html');">
+                        <img class="mobile" src="asset\logo\menuLogo\home.webp" alt="Home">
+                        <span class="desktop">Home</span>
+                    </button>
+                    <button onclick="switchPage('./works.html');">
+                        <img class="mobile" src="asset\logo\menuLogo\works.webp" alt="Works">
+                        <span class="desktop">Works</span>
+                    </button>
+                    <button class="rightSideButton" id="selectedButton" >
+                        <img class="mobile" src="asset\logo\menuLogo\contact.webp" alt="Contact">
+                        <span class="desktop">Contact</span>
+                    </button>
+                    <button class="rightSideButton" onclick="switchPage('./commission.html');">
+                        <img class="mobile" src="asset\logo\menuLogo\commission.webp" alt="Commission">
+                        <span class="desktop">Commission</span>
+                    </button>
+                </div>
+            </div>
+        </body>
+        <script>
+            //transition
+            const contentTr = document.querySelector('.main');
+            contentTr.style.opacity = "0";
+            contentTr.style.transition = "opacity 0.5s";
+            setTimeout(()=>contentTr.style.opacity = "1",100);
+
+            function switchPage(newPage){
+                contentTr.style.opacity = "0";
+                setTimeout(()=>window.location.href = newPage,400)
+            }
+            window.addEventListener("pageshow",()=>{
+                contentTr.style.opacity = "1";
+            });
+        </script>
+    <script src="data coor.js"></script>
+    <script>
+        let root = document.documentElement;
+		const setValue = (varName,value) => root.style.setProperty(varName, value);
+        const getValue = (varName)       => getComputedStyle(root).getPropertyValue(varName);
+
+
+        
+        // ================================ Line Drawing ================================
+        const svg = document.querySelector('svg');
+        const polyline = document.querySelector('svg polyline');
+
+        polyline.style.fill = "none";
+        polyline.style.stroke = "var(--lineColor)";
+        polyline.style.strokeWidth = "0.5";
+        polyline.style.shapeRendering = "pixelated";
+        
+        let drawCoor = [];
+        let mouseStillDown = false;
+        const drawOnMouseDown = true;//gambar_pas_diklik_aja;
+        const lineMinLen = 0;
+
+        let lastPos = [-999,-999];
+
+        let imageToDraw = [[50,50]];
+        const fadeTime = 300;
+        let indexToAdd = 0;
+        function addDrawCoor(evt) {
+            indexToAdd += 25;
+            indexToAdd %= imageToDraw.length;
+            const coorToAdd = [imageToDraw[indexToAdd][0]*5, imageToDraw[indexToAdd][1]*5];
+            addLinePoint(coorToAdd);
+        }
+
+        // const fadeTime = waktu_ngilang;
+        function addLinePoint(newCoor){
+            drawCoor.push(newCoor);
+            updateLine();
+            setTimeout(eraseLinePoint,fadeTime);
+        }
+
+        function eraseLinePoint(){
+            drawCoor.shift();
+            updateLine();
+        }
+
+        function updateLine(){
+            let formattedPos = "";
+            drawCoor.forEach((coor) => {
+                formattedPos += `${coor[0]},${coor[1]} `;
+            });
+            polyline.setAttribute("points",formattedPos)
+        }
+        setInterval(addDrawCoor, 1);
+
+        // ==========================
+        const sosmed = document.querySelector('.sosmedContainer');
+        const sosmedImg = document.querySelectorAll('.sosmedContainer img');
+        sosmedImg.forEach( img=>{
+            img.classList.add("unhoveredSosmed");
+        })
+        
+        // sosmedImg
+
+        // window.addEventListener('mousemove',
+        let hoveredElement
+        let linkOnclick = "";
+        // let buttonHovered = false;
+        
+        let sosmedRect = sosmed.getBoundingClientRect();
+        let sosmedImgRect = sosmed.getBoundingClientRect();
+        let elementLeft = sosmedRect.left;
+        let elementTop = sosmedRect.top;
+        let elementWidth = sosmedImgRect.width;
+        let elementHeight = sosmedImgRect.height;
+
+        window.addEventListener('resize', ()=>{
+            sosmedRect = sosmed.getBoundingClientRect();
+            sosmedImgRect = sosmed.getBoundingClientRect();
+            elementLeft = sosmedRect.left;
+            elementTop = sosmedRect.top;
+            elementWidth = sosmedImgRect.width;
+            elementHeight = sosmedImgRect.height;
+        })
+
+        sosmed.addEventListener('mousemove', ()=>{
+            let clickX = event.clientX - elementLeft;
+            let clickY = event.clientY - elementTop;
+            // while(buttonHovered){
+
+            let onBottomRight  = clickY + clickX > (elementWidth + elementHeight)/2; 
+            let onBottomLeft = clickY > clickX; 
+
+            const up = 0;
+            const left = 1;
+            const right = 2;
+            const down = 3;
+            // const pos = ["up","left","right","down"] // for debugging
+            let position = 0;
+            if(onBottomLeft)    { position += 1; }
+            if(onBottomRight)   { position += 2; }
+
+            try{hoveredElement.classList.add("unhoveredSosmed");}
+            catch{}
+            switch(position) {
+                case up:
+                    hoveredElement = document.querySelector('.sosmedContainer .up');
+                    linkOnclick = "https://twitter.com/karunochi";
+                    imageToDraw = twitter;
+                    break;
+                case left:
+                    hoveredElement = document.querySelector('.sosmedContainer .left');
+                    linkOnclick = "https://www.instagram.com/askarghany";
+                    imageToDraw = instagram;
+                    break;
+                case right:
+                    hoveredElement = document.querySelector('.sosmedContainer .right');
+                    linkOnclick = "mailto:askarghany05@gmail.com";
+                    imageToDraw = gmail;
+                    break;
+                case down:
+                    hoveredElement = document.querySelector('.sosmedContainer .down');
+                    linkOnclick = "https://www.discord.gg/75WkUWj5nb";
+                    imageToDraw = discord;
+                    break;
+            }
+            hoveredElement.classList.remove("unhoveredSosmed");
+            // }
+        });
+        // sosmed.addEventListener('mouseover', () => {
+        //     buttonHovered = true;
+        //     lightUpHoveredElement();
+        // });
+        sosmed.addEventListener('mouseout', () => {
+            hoveredElement.classList.add("unhoveredSosmed")
+            imageToDraw = [[50,50]]
+        });
+        sosmed.addEventListener('click', 
+                function(event) {
+                    window.open(linkOnclick);
+                }
+            );
+            // ==========================
+            
+        const svgCutoff = ()=>window.matchMedia('(max-width: 500px)').matches;
+        const adjustPolylineSize = ()=>{
+            if(svgCutoff()){
+                polyline.style.scale = `${window.innerWidth/500}`;
+            }else{
+                polyline.style.scale = `1`;
+            }
+        };
+        
+        window.addEventListener('resize', adjustPolylineSize)
+        setTimeout(adjustPolylineSize,10);
+
+
+        // ================================ Rotate Logo ================================
+        const KRNC = document.querySelector('.KRNC')
+        const logogram = document.querySelectorAll('.logogram')
+        const logoIcon = document.querySelectorAll('.logoIcon')
+        KRNC.addEventListener('mouseover', () => {
+            logogram.forEach((img)=>{
+                img.style.transform = "rotate(90deg)";
+            })
+            logoIcon.forEach((img)=>{
+                img.style.transform = "rotate(0deg)";
+            })
+        });
+        KRNC.addEventListener('mouseout', () => {
+            logogram.forEach((img)=>{
+                img.style.transform = "rotate(0deg)";
+            })
+            logoIcon.forEach((img)=>{
+                img.style.transform = "rotate(-90deg)";
+            })
+        });
+    </script>
+    <div class="visitorCounter">
+        <a href='https://www.stat-counter.org/'>https://www.Stat-Counter.org</a> <script defer type='text/javascript' src='https://www.freevisitorcounters.com/auth.php?id=9ba6b1cf807f7f8bcdef4e4c3efb72305000407c'></script>
+        <script defer type="text/javascript" src="https://www.freevisitorcounters.com/en/home/counter/1056544/t/3"></script>
+    </div>
+</html>

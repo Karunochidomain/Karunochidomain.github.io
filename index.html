@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html class="notranslate" translate="no">    <!-- All translators -->
+    <head>
+        <meta charset="utf-8">
+		<meta http-equiv="content-language" content="en">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>karunochi</title>
+        <meta name="description" content="Hello, this website is dedicated to give you a glimpse of my creations.">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="shortcut icon" type="image/x-icon" href="asset\logo\karunochi\other\iconLow.webp" />
+        <link rel="stylesheet" href="shared.css">
+        <meta name="google" content="notranslate" />
+        <script>
+            const jumlahImageDepan = 9;
+        </script>
+        <style>
+            :root{
+                --scrollDuration:120s;
+                --tinggiPantulan:20%;
+                --blurPantulan:10px; /* makin gede makin blur*/
+                --usedWidth:100vw;   /* Buat ngatur lebar  layar gambar ngescroll | vw = % lebar  layar */
+                --usedHeight:80vh;  /* Buat ngatur tinggi layar gambar ngescroll | vh = % tinggi layar */
+                --gelapBg:20%;      /* % seberapa gelap scrolling image*/
+
+                --imgScrollX:0px;
+            }
+            body{
+                background-color: black;
+                color: white;
+                padding: 0;
+                border: 0;
+                overflow: hidden;
+                width: 100vw;
+                width: 100vh;
+            }
+
+            .buttonContainer{
+                backdrop-filter: brightness(0.6);
+                /* scrollbar adjustment  */
+                translate: -5px 0;
+            }
+
+            .askarMTopCollection2010{
+                width: var(--usedWidth);
+                height: var(--usedHeight);
+                overflow: hidden;
+                display: flex;
+                margin: 0% auto;
+                box-sizing: border-box;
+            }
+            .imgContainer{
+                height: 100%;
+                display: flex;
+                animation:scroll-left var(--scrollDuration) linear infinite;
+                gap: 4vh; /* ====================================================experiemntal */
+                margin-right: 4vh;
+            }
+            .imgContainer img{
+                height: 100%;
+            }
+            @media (max-aspect-ratio: 1/1) {
+                .askarMTopCollection2010{
+                    display: grid;
+                }
+                .imgContainer{
+                    flex-direction: column;
+                    animation:scroll-up var(--scrollDuration) linear infinite;
+                    width: 100%;
+                    gap: 0vh; /* ====================================================experiemntal */
+                    margin-right: 0vh;
+                }
+                .imgContainer img{
+                    width: 100%;
+                    height: auto;
+                }
+            }
+            @keyframes scroll-left{
+                0%{
+                    transform: translateX(0);
+                }
+                100%{
+                    transform: translateX(var(--imgScrollX));
+                }
+            }
+            @keyframes scroll-up{
+                0%{
+                    transform: translateY(0);
+                }
+                100%{
+                    transform: translateY(var(--imgScrollY));
+                }
+            }
+
+            #reflectContainer {
+                width: var(--usedWidth);
+                height: 20vh;
+                margin: 0 auto;
+                position: relative;
+                filter: blur(var(--blurPantulan));
+            }
+            #reflection {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                transform: scaleY(-1) translate(0,var(--tinggiPantulan));
+                /* -webkit-mask-image:-webkit-gradient(linear, left top, left bottom, from(#0000), to(#0009)) */
+                mask-image: linear-gradient(to bottom, transparent, #0009);
+                -webkit-mask-image: linear-gradient(to bottom, transparent, #0009);
+		  	}
+
+            /* .scatter{
+                filter: blur(10px) brightness(1);
+                mix-blend-mode: lighten;
+            } */
+            
+            .stack{
+                position: absolute;
+                top: 0;
+                left: 0;
+                height: 100%;
+                width: 100vw;
+            }
+            
+            .overlay{
+                background-color:rgba(0,0,0,var(--gelapBg));
+                height: 100%;
+                width: 100%;
+            }
+
+            #logo{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 80%;
+            }
+            #logo img{
+                max-width: 33%;
+                max-height: 20%;
+            }
+            </style>
+        </head>
+        <body>
+            <!-- <div class="stack">
+                <div class="scatter askarMTopCollection2010">
+                    <div class="imgContainer"></div><div class="imgContainer"></div>
+                </div>
+            </div> -->
+            
+            <div class="main">
+            <div class="stack main">
+                <div class="askarMTopCollection2010">
+                    <div class="imgContainer"></div><div class="imgContainer"></div>
+                </div>
+                <div id="reflectContainer">
+                    <div id="reflection">
+                        <div class="askarMTopCollection2010">
+                            <div class="imgContainer"></div><div class="imgContainer"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="stack overlay">
+            </div>
+            <div class="stack">
+                <div id="logo">
+                    <img src="asset\logo\karunochi\white\Logotype (BG).webp">
+                </div>
+            </div>
+            </div>
+            
+            <div class="buttonContainer">
+                <div class="buttonSplitter">
+                    <button class="logoButton">
+                        <div class="KRNC">
+                            <img src="asset\logo\karunochi\other\LogoAnimation\cross.webp">
+                            <span class="KRNCmid vertical">
+                                <img src="asset\logo\karunochi\other\LogoAnimation\LetterH.webp"   class="KRNChild logogram rotate">
+                                <img src="asset\logo\karunochi\other\LogoAnimation\IconH.webp"     class="KRNChild logoIcon rotate">
+                            </span>
+                            <span class="KRNCmid horizontal">
+                                <img src="asset\logo\karunochi\other\LogoAnimation\LetterV.webp"   class="KRNChild logogram rotate">
+                                <img src="asset\logo\karunochi\other\LogoAnimation\IconV.webp"     class="KRNChild logoIcon rotate">
+                            </span>
+                        </div>
+                    </button>
+                    <button id="selectedButton" >
+                        <img class="mobile" src="asset\logo\menuLogo\home.webp" alt="Home">
+                        <span class="desktop">Home</span>
+                    </button>
+                    <button onclick="switchPage('./works.html');">
+                        <img class="mobile" src="asset\logo\menuLogo\works.webp" alt="Works">
+                        <span class="desktop">Works</span>
+                    </button>
+                    <button onclick="switchPage('./contact.html');" class="rightSideButton">
+                        <img class="mobile" src="asset\logo\menuLogo\contact.webp" alt="Contact">
+                        <span class="desktop">Contact</span>
+                    </button>
+                    <button class="rightSideButton" onclick="switchPage('./commission.html');">
+                        <img class="mobile" src="asset\logo\menuLogo\commission.webp" alt="Commission">
+                        <span class="desktop">Commission</span>
+                    </button>
+                </div>
+            </div>
+        </body>
+        <script>
+            //transition
+            const contentTr = document.querySelector('.main');
+            let pageSwitched = false;
+            contentTr.style.opacity = "0";
+            contentTr.style.transition = "opacity 0.5s";
+            setTimeout(()=>contentTr.style.opacity = "1",100);
+
+            function switchPage(newPage){
+                pageSwitched = true;
+                contentTr.style.opacity = "0";
+                setTimeout(()=>window.location.href = newPage,400)
+            }
+            window.addEventListener("pageshow",()=>{
+                if(!pageSwitched){
+                    contentTr.style.opacity = "1";
+                }
+            });
+        </script>
+    <script>
+        let root = document.documentElement;
+		const setValue = (varName,value) => root.style.setProperty(varName, value);
+        const getValue = (varName)       => getComputedStyle(root).getPropertyValue(varName);
+
+        let img = "";
+        let i=1;
+        for(let i=1;i<=jumlahImageDepan;i++){
+            let image = `asset/frontImage/Display/${i}.webp`
+            img += `
+                <img src="${image}" loading="lazy">`
+        }
+
+        imgContainerList = Array.from(document.getElementsByClassName("imgContainer"));
+        imgContainerList.forEach(
+            imgContainer => {imgContainer.innerHTML = img}
+        );
+
+        let totalImgWidth = 0;
+        let totalImgHeight = 0;
+
+        // const topCollectionWidth = document.querySelector('#askarMTopCollection2010').offsetWidth;
+        function addTotalImgSize(imgWidth,imgHeight){
+            totalImgWidth += imgWidth;
+            setValue ('--imgScrollX',totalImgWidth*-1 + jumlahImageDepan*-4/100*window.innerHeight + 'px');
+
+            totalImgHeight += imgHeight;
+            setValue ('--imgScrollY',totalImgHeight*-1 + 'px');
+        }
+        const images = document.querySelector('.imgContainer').querySelectorAll('img');
+        images.forEach(image=>{
+            image.addEventListener('load',
+                onLoad => { 
+                    addTotalImgSize(image.offsetWidth, image.offsetHeight);
+        })})
+
+        const recalculateImgWidth=()=>{
+            console.log("recalculate")
+            totalImgWidth = 0;
+            totalImgHeight = 0;
+            images.forEach(image=>{ 
+                addTotalImgSize(image.offsetWidth, image.offsetHeight);
+        })}
+        window.addEventListener('resize', recalculateImgWidth);
+        
+        // ================================ Rotate Logo ================================
+        const KRNC = document.querySelector('.KRNC')
+        const logogram = document.querySelectorAll('.logogram')
+        const logoIcon = document.querySelectorAll('.logoIcon')
+        KRNC.addEventListener('mouseover', () => {
+            logogram.forEach((img)=>{
+                img.style.transform = "rotate(90deg)";
+            })
+            logoIcon.forEach((img)=>{
+                img.style.transform = "rotate(0deg)";
+            })
+        });
+        KRNC.addEventListener('mouseout', () => {
+            logogram.forEach((img)=>{
+                img.style.transform = "rotate(0deg)";
+            })
+            logoIcon.forEach((img)=>{
+                img.style.transform = "rotate(-90deg)";
+            })
+        });
+        
+    </script>
+    <div class="visitorCounter">
+        <a href='https://www.stat-counter.org/'>https://www.Stat-Counter.org</a>
+        <script defer type='text/javascript' src='https://www.freevisitorcounters.com/auth.php?id=f541a7a42a3e67a4a11a59df34d072479955aef4'></script>
+        <script defer type="text/javascript" src="https://www.freevisitorcounters.com/en/home/counter/1056538/t/0"></script>
+    </div>
+</html>

@@ -1,0 +1,186 @@
+body{
+    font-family: serif;
+    background-color: var(--bgColor);
+    color: white;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
+    /* overflow-x: hidden; */
+    /* width: 98vw; */
+    /* height: 100%; */
+}
+
+/* ============================================== MAIN MENU ============================================== */
+.buttonContainer{
+    position: fixed;
+    bottom: 5%;
+    left: 50%;
+    transform: translateX(-50%);
+    min-width: 60vw;
+    padding: 0px 5px;
+
+    background-color:#fff;
+    color: #000;
+    border-radius: 100vh;
+/*     mix-blend-mode: lighten; */
+}
+@media only screen and (max-width: 1200px) {
+    .buttonContainer{
+        width: 80%;
+    }
+}
+.buttonSplitter{
+    margin: 0 3vw;
+    /* display: flex; */
+    display: flex;
+    justify-content: space-between;
+    /* display: grid;
+    grid-template-columns: auto repeat(4, 1fr);
+    border-radius: 50vh;
+    justify-content:space-between; */
+}
+.buttonSplitter span {
+    color: #000;
+}
+.buttonSplitter button {
+    appearance: none;
+    -webkit-appearance: none;
+    flex: 1; /* This property makes the buttons stretch to fill available space */
+    /* margin: 0 5px; */
+    font-family: serif;
+    font-weight: 600;    
+    /* color: #444; */
+    font-size: min(19px,3vw,5vh);
+    background-color:#0000;
+    height: min(11vh,11vw);
+    border-width: 1px 1px;
+    border-color: #0000;    
+}
+.buttonSplitter button:hover{
+    border-style: solid;
+    border-color: #0000 #888;
+    border-image: linear-gradient(transparent, #777 ,transparent ) 10;
+    
+    color: #000;  
+    cursor: pointer;
+    background-color: #0002;
+}
+#selectedButton{
+    color: #000;
+    font-weight: 1000 ;
+    cursor: default;
+}
+#selectedButton:hover{
+    background-color: #0000;
+}
+/* ======================= animated logo ======================= */
+.logoButton{
+    width: min(75px,8vw,15vh);
+    position: relative;
+    display: inline-block;
+}
+.KRNC {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    border-color: #0000!important;
+    cursor: default;
+}
+
+.logoButton:has(.KRNC) {
+    border-color: #0000!important;
+    background-color: #0000!important;
+}
+
+.KRNC img {
+    max-width: min(100%,6vh);
+    max-height: 100%;
+    object-fit: cover;
+    position: absolute;
+    transition: transform 500ms ease-in-out;
+}
+.horizontal{
+    clip-path: polygon(0 0, 100% 0, 50% 50%, 100% 100%, 0 100%, 50% 50%);
+}
+.vertical{
+    clip-path: polygon(100% 0, 100% 100%, 50% 50%, 0 100%, 0 0, 50% 50%);
+}
+.logoIcon{
+    transform:rotate(-90deg);
+}
+.KRNCmid{
+    display: flex;
+    position: absolute;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    max-width: 100%;
+    aspect-ratio: 1 / 1;
+}
+button img{
+    width: min(50px,6vw,10vh);
+    aspect-ratio: 1 / 1;
+}
+.logoButton{
+    order: 1;
+}
+.rightSideButton{
+    order: 2;
+}
+
+#logo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80%;
+}
+#logo img{
+    max-width: 33%;
+    max-height: 20%;
+}
+.desktop{ 
+    display: none;/* hide on mobile*/
+}
+@media (min-width: 768px) {
+    .mobile{
+        display: none;
+    }
+    .desktop{
+        display: initial;
+    }
+    .buttonSplitter button {
+        height: 9vh;
+    }
+    .logoButton{
+        order: -1;
+    }
+}
+/* ============================================== SCROLLBAR ============================================== */
+::-webkit-scrollbar {
+    width: 1vw;
+	position:fixed;
+}
+::-webkit-scrollbar-track {
+    background-color: #0000; 
+    border-radius: 0px;
+}
+::-webkit-scrollbar-thumb {
+    background-color: #fff7; 
+    border-radius: 100vw;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #fffa; 
+}
+/* Adjust the main menu to match the width of the scrollbar */
+/* .buttonContainer{
+    margin-left: 10x; 
+} */
+
+.visitorCounter{
+    position: absolute;
+    top: -100vh;
+}
