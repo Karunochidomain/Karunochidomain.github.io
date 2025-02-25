@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>karunochi</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="shortcut icon" type="image/x-icon" href="asset\logo\karunochi\other\iconLow.webp" />
+        <link rel="stylesheet" href="shared.css">
+        <script>
+            
+            //setting
+            const postPerPage = 5
+
+        </script>
+        <style>
+            :root{
+            }
+            body{
+                background-color: black;
+                color: white;
+                padding: 0;
+                border: 0;
+                overflow-x: hidden;
+                width: 100vw;
+                margin-bottom: 15vh;
+                /* space for menu */
+            }
+
+            .buttonContainer{
+                backdrop-filter: brightness(1);
+            }
+            .main{
+                /* font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; */
+                
+                width: 65vw;
+                font-size: 16px;
+                margin-bottom: 15vh;
+                color: #ddd;
+                margin: auto;
+            }
+            h1{
+                font-family: serif;
+                font-size: 5vw;
+                /* font-weight: bolder; */
+                font-weight: normal;
+                margin: auto;
+                color: #fff;
+                margin: 5vh 0;
+                text-align: center;
+            }
+            hr{
+                /* width: 20%; */
+            }
+            
+
+            
+            .noSpill{
+                max-width: 100%;
+            }
+            .hide{
+                display: none;
+            }
+            .nurtureHighlight>span{
+                background-color: white;
+                color: black;
+            }
+            .clickable{
+                cursor: pointer;
+            }
+            @media (max-width: 1140px) {
+                .main{
+                    width: 90vw;
+                }
+            }
+            /* =====================================displayed Post CSS ======================================== */
+            .displayedPost .postHead{
+                letter-spacing: 5px;
+                text-align: left;
+                font-size: 4.vw;
+                margin-bottom: 2vw;
+                margin-top: 0vw;
+            }
+            .displayedPost .title{
+                font-size: 2em;
+                text-decoration: underline;
+                text-decoration-color: black;
+                text-decoration-thickness: 0.01em;
+            }
+            .displayedPost .postDate{
+                margin: 0;
+                margin-top: 2vw;
+            }
+            .displayedPost .content{
+                text-align: left;
+                white-space:pre-wrap;
+            }
+            .displayedPost.backButton{
+                position: fixed;
+                /* display: block; */
+                top: 30px;
+                left: 30px;
+                font-size: 1.6em;
+                cursor: pointer;
+            }
+
+            .displayedPost{
+                opacity: 0;
+            }
+            /* =====================================Post list CSS ======================================== */
+            .postListContainer{
+                opacity: 0;
+            }
+            .postList .post{
+                display: flex;
+                transition: all 0.3s;
+                filter:saturate(0.0);
+                cursor: pointer;
+                margin-top: 5px;
+                margin-bottom: 5px;
+                padding-top: 5px;
+                padding-bottom: 5px;
+                padding-left: 5px;
+            }
+            .postList .post:hover{
+                filter:saturate(1.6);
+                background-color: #fff2;
+            }
+            .postList .text{
+                width: 70%;
+                display: flex;
+                flex-direction: column;
+                justify-content:center;
+                margin-left: 15px;
+                gap: 10px;
+                /* align-items: center; */
+            }
+            /* .postList .text>div{
+                margin-top: 5px;
+                margin-bottom: 5px;
+            } */
+            .postList .thumbnail{
+                max-width: 27%;
+                aspect-ratio: 16/9;
+                display: flex;
+                align-items: center;
+            }
+            .postList .thumbnail img{
+                aspect-ratio: 16/9;
+                width: 100%;
+                max-height: 100%;
+                object-fit: contain;
+                /* background-color: black; */
+                border-radius: 5px;
+            }
+            .postList .post .title{
+                /* text-decoration: underline; */
+                font-size: 1.4em;
+                font-weight: bold;
+            }
+            .postList .post .date{
+                background-color: white;
+                color: black;
+                border-radius: 5px;
+                padding: 2px 4px;
+                width: min-content;
+            }
+            .postList .contentPrev{
+                display: -webkit-box;     /* Required for webkit-based browsers */
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                -webkit-line-clamp: 2;    /* Number of lines to display */
+                text-align: justify;
+            }
+            @media (max-width: 960px) {
+                .postList .post .title{
+                    font-size: 1em;
+                }
+                .postList .post .date{
+                    font-size: 0.7em;
+                }
+                .postList .contentPrev{
+                    display: none;
+                }
+            }
+
+            .postListContainer .pageNavigation{
+                padding-top: 50px;
+                padding-bottom: 50px;
+                display: flex;
+                gap: 20px;
+                justify-content: center;
+            }
+
+            /* =====================================Page nav CSS ======================================== */
+            .pageNavigation .pagebutton{
+                color: white;
+                /* font-weight: bolder; */
+                border-radius: 100px;
+                width: 2em;
+                height: 2em;
+                align-content: center;
+                text-align: center;
+                border: 1px solid white;
+                
+                background-color: white;
+                color: black;
+                font-weight: bolder;
+
+                transition: all 0.2s;
+            }
+            .pageNavigation .pagebutton:hover{
+                background-color: #0000;
+                color: white;
+                font-weight:normal;
+            }
+            .pageNavigation .pagebutton.inactiveButton{
+                background-color: #0000;
+                color: white;
+                font-weight:normal;
+                cursor: default;
+            }
+
+
+        </style>
+    </head>
+        <body>
+            <div class="displayedPost backButton" onclick="back()">back</div>
+            <div class="main">
+                <h1 class="">Blog</h1>
+                <hr class="">
+                
+                <div class="postListContainer" id="postListContainer">
+                    <div class="postList" id="postList">
+                        <div class="post" onclick="openPost(2)" id="postID2">
+                            <div class="thumbnail"><img src="https://hololive.hololivepro.com/wp-content/uploads/2025/02/WT00.jpg" alt=""></div>
+                            <div class="text">
+                                <div class="dateContainer"><div class="date">2025.02.17</div></div>
+                                <div class="title">Moona Hoshinova 1st Album PANDORA, Pertama dari hololive Indonesia</div>
+                                <div class="contentPrev">COVER Corporation (Minato-ku, Tokyo, Japan, CEO: Motoaki Tanigo) dengan bangga mengumumkan perilisan album pertama dari salah satu talent hololive Indonesia, Moona Hoshinova. Album yang bertajuk PANDO...</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pageNavigation" id="pageNavigation">
+                        <!-- <div class="pagebutton">&lt;</div>
+                        <div class="pagebutton">1</div>
+                        <div class="pagebutton">2</div>
+                        <div class="pagebutton">></div> -->
+                    </div>
+    
+                </div>
+                <div class="displayedPost" id="displayedPost" >    
+                    <div class="postHead postDate nurtureHighlight"><span>KRNC.40.4X</span></div>
+                    <div class="postHead title nurtureHighlight"><span>Error</span></div>    
+                    <div class="content">Post Failed to load
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="buttonContainer">
+                <div class="buttonSplitter">
+                    <button class="logoButton">
+                        <div class="KRNC">
+                            <img src="asset\logo\karunochi\other\LogoAnimation\cross.webp">
+                            <span class="KRNCmid vertical">
+                                <img src="asset\logo\karunochi\other\LogoAnimation\LetterH.webp"   class="KRNChild logogram rotate">
+                                <img src="asset\logo\karunochi\other\LogoAnimation\IconH.webp"     class="KRNChild logoIcon rotate">
+                            </span>
+                            <span class="KRNCmid horizontal">
+                                <img src="asset\logo\karunochi\other\LogoAnimation\LetterV.webp"   class="KRNChild logogram rotate">
+                                <img src="asset\logo\karunochi\other\LogoAnimation\IconV.webp"     class="KRNChild logoIcon rotate">
+                            </span>
+                        </div>
+                    </button>
+                    <button >
+                        <img class="mobile" src="asset\logo\menuLogo\home.webp" alt="Home">
+                        <span class="desktop">Home</span>
+                    </button>
+                    <button onclick="window.location.href = './works.html';">
+                        <img class="mobile" src="asset\logo\menuLogo\works.webp" alt="Works">
+                        <span class="desktop">Works</span>
+                    </button>
+                    <button class="rightSideButton" id="selectedButton" >
+                        <img class="mobile" src="asset\logo\menuLogo\contact.webp" alt="Contact">
+                        <span class="desktop">Contact</span>
+                    </button>
+                    <button class="rightSideButton">
+                        <img class="mobile" src="asset\logo\menuLogo\commission.webp" alt="Commission">
+                        <span class="desktop">Commission</span>
+                    </button>
+                </div>
+            </div>
+        </body>
+        <script>
+            //transition
+            const contentTr = document.querySelector('.main');
+            contentTr.style.opacity = "0";
+            contentTr.style.transition = "opacity 0.5s";
+            setTimeout(()=>contentTr.style.opacity = "1",100);
+
+            function switchPage(newPage){
+                contentTr.style.opacity = "0";
+                setTimeout(()=>window.location.href = newPage,400)
+            }
+            window.addEventListener("pageshow",()=>{
+                contentTr.style.opacity = "1";
+            });
+        </script>
+    <script>
+        let root = document.documentElement;
+		const setValue = (varName,value) => root.style.setProperty(varName, value);
+        const getValue = (varName)       => getComputedStyle(root).getPropertyValue(varName);
+
+        // ================================ Rotate Logo ================================
+        const KRNC = document.querySelector('.KRNC')
+        const logogram = document.querySelectorAll('.logogram')
+        const logoIcon = document.querySelectorAll('.logoIcon')
+        KRNC.addEventListener('mouseover', () => {
+            logogram.forEach((img)=>{
+                img.style.transform = "rotate(90deg)";
+            })
+            logoIcon.forEach((img)=>{
+                img.style.transform = "rotate(0deg)";
+            })
+        });
+        KRNC.addEventListener('mouseout', () => {
+            logogram.forEach((img)=>{
+                img.style.transform = "rotate(0deg)";
+            })
+            logoIcon.forEach((img)=>{
+                img.style.transform = "rotate(-90deg)";
+            })
+        });
+        //============================== displayed post JS ================================
+        
+ 
+        let currentPage = 1
+
+        //fecthing post    
+        const postContainer = document.querySelector("#postList")   
+        let fullPostlist = []
+        let postlist = []
+        fetch('postlist.json')
+            .then(response => {
+                if (!response.ok) {
+                    console.log("Failed to fetch post");
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                fullPostlist = data
+
+                postlist = postlist = data.toReversed().filter(post => !post.deleted);
+                updatePostlist()
+                
+                // const urlParams = new URLSearchParams(window.location.search);
+                // const strPostNumberToOpen = urlParams.get('postNumber');
+                // const postNumberToOpen = parseInt(strPostNumberToOpen)
+                
+
+                //there's only one query at the link and we only care about its value
+                const urlParams = new URLSearchParams(window.location.search);
+                const strPostNumberToOpen = [...urlParams.values()][0]; 
+                const postNumberToOpen = parseInt(strPostNumberToOpen)
+                if(strPostNumberToOpen == null){
+                    fadeIn(".postListContainer")
+                    fadeOut(".displayedPost")
+                }else{
+                    openPost(postNumberToOpen,0,500,false)
+                }
+                // console.log(data);
+            })
+            
+        function getPostId(post){
+            for (const i in fullPostlist) {
+                if (post == fullPostlist[i]) return i
+            }
+        }
+
+
+        //i need to add id to every post so i can scroll
+        let displayedPostIndex = -1
+
+        function fadeOut(selector, duration = 500) {
+            const elements = document.querySelectorAll(selector);
+            elements.forEach(element => {
+                element.style.transition = `opacity ${duration}ms`;
+
+                requestAnimationFrame(() => {
+                    element.style.opacity = 0;
+                });
+
+                // Optional: Hide the element after fading out
+                setTimeout(() => {
+                    element.style.display = 'none';
+                }, duration);
+            });
+        }
+
+        function fadeIn(selector, duration = 500) {
+            const elements = document.querySelectorAll(selector);
+            elements.forEach(element => {
+                element.style.display = ''; // Reset display
+                element.style.transition = `opacity ${duration}ms`;
+                
+                setTimeout(() => {
+                    element.style.opacity = 1;
+                }, 50);
+            });
+        }
+        function stopAllMedia() {
+            const mediaElements = document.querySelectorAll('audio, video');
+            mediaElements.forEach(media => {
+                media.pause();
+                media.currentTime = 0;
+            });
+
+            const iframes = document.querySelectorAll('iframe');
+            iframes.forEach(iframe => {
+                if (iframe.src.includes('youtube.com')) {
+                // Reload the iframe to stop the video
+                iframe.src = iframe.src;
+                }
+            });
+        }
+
+        let onDisplayingPost = false
+        function switchScreen(fadeOutDuration = 500, fadeInDuration=500){
+            let selectorToHide = ""
+            let selectorToShow = ""
+            if(onDisplayingPost){
+                selectorToHide = ".displayedPost"
+                selectorToShow = ".postListContainer"
+            }else{
+                selectorToHide = ".postListContainer"
+                selectorToShow = ".displayedPost"
+            }
+            onDisplayingPost = !onDisplayingPost
+            fadeOut(selectorToHide,fadeOutDuration)
+            
+            setTimeout(() => {
+                stopAllMedia()
+                fadeIn(selectorToShow,fadeInDuration)
+            }, fadeOutDuration);
+        }
+        //executed when the back button pressed
+        function back(){
+            switchScreen()
+            const url = window.location.origin + window.location.pathname;
+            history.pushState(null, '', url);
+            //set timeout : scroll to post with that index //idk if i need to do that, if so ill erase the parameter
+            setTimeout(() => {
+                document.getElementById('postID'+displayedPostIndex).scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'center'
+                });
+            }, 750);
+        }
+
+        function openPost(postIndex,fadeOutDuration = 500, fadeInDuration=500, addParams = true){
+            displayedPostIndex = postIndex
+            switchScreen(fadeOutDuration,fadeInDuration)
+            updateDisplayedPost()
+            setTimeout(() => {
+                scrollToTop()
+
+                if(addParams){
+
+                    // console.log(postlist[postIndex].title)
+                    // console.log(toCamelCase(postlist[postIndex].title))
+
+                    const url = new URL(window.location);
+                    // url.searchParams.set(toCamelCase(postlist[postIndex].title),"0");
+                    // url.searchParams.set('postNumber',postIndex);
+                    url.searchParams.set(toCamelCase(postlist[postIndex].title),postIndex);
+                    history.pushState(null, '', url);
+                }
+            }, fadeOutDuration);
+        }
+
+        // ====================== Admin shiet ====================== 
+
+        //i ahvent aimplemented pages
+        function updatePostlist(){
+            postContainer.innerHTML = ""
+            const startingPost = (currentPage-1)*postPerPage
+            const endingPost = currentPage*postPerPage
+            for (const i in postlist) {
+                if (i<startingPost) continue
+                if (i>=endingPost) break
+                const post = postlist[i]
+                const postID =  getPostId(post)
+                const tempDiv = document.createElement('div');
+                tempDiv.innerHTML = post.content;
+                const postContent = tempDiv.innerText;
+
+                const newPost = createPostNode(post.title, postContent, post.date||"MMIV.II.XX",post.thumbnailURL||"https://c4.wallpaperflare.com/wallpaper/449/607/694/porter-robinson-edm-music-music-festival-nurture-hd-wallpaper-preview.jpg")
+                
+                newPost.onclick = ()=>openPost(postID)
+                // newPost.onclick = ()=>console.log("post num "+i+" clicked")
+                newPost.id = "postID"+postID
+                
+                postContainer.append(newPost)
+            }
+            updatePageNavigation()
+        }
+
+        function updatePostlistPages(){
+            fadeOut(".postListContainer",500)
+            scrollToTop()
+            setTimeout(()=>{
+                    updatePostlist()
+                    fadeIn(".postListContainer",500)
+            },500)
+        }
+
+        function updatePageNavigation(){
+            const pageNavigation   = document.querySelector('#pageNavigation');
+            const numberOfPage  = Math.ceil(postlist.length/postPerPage)
+
+            pageNavigation.innerHTML=""
+
+            prevButton = createPageButton("<",()=>{
+                if(currentPage > 1){
+                    currentPage--
+                    updatePostlistPages()
+                }
+            })
+            if(currentPage <= 1){
+                prevButton.classList.add("inactiveButton")
+            }
+            pageNavigation.appendChild(prevButton);
+
+            for (let page = 1; page <= numberOfPage; page++) {
+                let pageButton = createPageButton(page,()=>{
+                    currentPage=page
+                    updatePostlistPages()
+                })
+                if(currentPage == page){
+                    pageButton.classList.add("inactiveButton")
+                }
+                pageNavigation.appendChild(pageButton);
+            }
+            
+            nextButton = createPageButton(">",()=>{
+                if(currentPage < numberOfPage){
+                    currentPage++
+                    updatePostlistPages()
+                }
+            })
+            if(currentPage >= numberOfPage){
+                nextButton.classList.add("inactiveButton")
+            }
+            pageNavigation.appendChild(nextButton);
+        }
+
+        function updateDisplayedPost (){
+            const displayedPostTitle  = document.querySelector('#displayedPost .title span');
+            const displayedPostContent= document.querySelector('#displayedPost .content');
+            const displayedPostDate   = document.querySelector('#displayedPost .postDate span');
+            displayedPostTitle.innerText = fullPostlist[displayedPostIndex].title
+            displayedPostContent.innerHTML = fullPostlist[displayedPostIndex].content
+            displayedPostDate.innerText = fullPostlist[displayedPostIndex].date||"MMIV.II.XX"
+        }
+
+        function createPageButton(text,onclick){
+            const pageButton    = document.createElement('div');
+            pageButton.className = 'pagebutton';
+            pageButton.textContent = text;
+            pageButton.onclick = onclick
+            return pageButton
+        }
+
+        function createPostNode(title, postContent, date, thumbnailSrc) {
+            // Create the main container div
+            const postDiv = document.createElement('div');
+            postDiv.className = 'post';
+            
+            // Create the thumbnail div
+            const thumbnailDiv = document.createElement('div');
+            thumbnailDiv.className = 'thumbnail';
+            const img = document.createElement('img');
+            img.src = thumbnailSrc;
+            img.alt = '';
+            thumbnailDiv.appendChild(img);
+
+            // Create the text container
+            const textDiv = document.createElement('div');
+            textDiv.className = 'text';
+
+            // Create the date container
+            const dateContainer = document.createElement('div');
+            dateContainer.className = 'dateContainer';
+            const dateDiv = document.createElement('div');
+            dateDiv.className = 'date';
+            dateDiv.textContent = date;
+            dateContainer.appendChild(dateDiv);
+
+            // Create the title div
+            const titleDiv = document.createElement('div');
+            titleDiv.className = 'title';
+            titleDiv.textContent = title;
+
+            // Create the content preview div
+            const contentPrevDiv = document.createElement('div');
+            contentPrevDiv.className = 'contentPrev';
+            contentPrevDiv.textContent = postContent;
+
+            // Append all parts to the text container
+            textDiv.appendChild(dateContainer);
+            textDiv.appendChild(titleDiv);
+            textDiv.appendChild(contentPrevDiv);
+
+            // Append the thumbnail and text to the main container
+            postDiv.appendChild(thumbnailDiv);
+            postDiv.appendChild(textDiv);
+
+            // Return the complete post node
+            return postDiv;
+        }
+        
+
+        function toCamelCase(str) {
+            return str
+                .toLowerCase()                        // Convert the entire string to lowercase
+                .split(" ")                // Split by non-alphanumeric characters
+                .filter(word => word.length > 0)        // Remove empty words
+                .map((word, index) => 
+                    index === 0 
+                        ? word                         // First word remains lowercase
+                        : word.charAt(0).toUpperCase() + word.slice(1) // Capitalize the first letter of other words
+                )
+                .join('');                             // Join words without spaces
+        }
+
+        function scrollToTop(smooth = true){
+            if(smooth){
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            }else{
+                window.scrollTo({
+                    top: 0
+                });
+            }
+        }
+
+
+        
+    </script>
+</html>
