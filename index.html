@@ -476,10 +476,20 @@
             window.addEventListener("focus",()=>{
                 contentTr.style.opacity = "1";
             });
-            window.addEventListener("load", ()=>{contentTr.style.opacity = "1"});
+            window.addEventListener("load", ()=>{
+                contentTr.style.opacity = "1"
+            });
+            window.addEventListener("popstate", ()=>{
+                contentTr.style.opacity = "1"
+            });
+            window.addEventListener("pagereveal", ()=>{
+                contentTr.style.opacity = "1"
+            });
 
-            // Execute when history changes (back/forward navigation)
-            window.addEventListener("popstate", ()=>{contentTr.style.opacity = "1"});
+            window.addEventListener("resize", ()=>{
+                contentTr.style.opacity = "1"
+            });
+
             window.addEventListener("pageshow",()=>{
                 if(!pageSwitched){
                     contentTr.style.opacity = "1";
