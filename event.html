@@ -1,0 +1,60 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Window Event Logger</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: black;
+            color: lime;
+            padding: 20px;
+            overflow-y: auto;
+        }
+        #log {
+            white-space: pre-wrap;
+            font-size: 14px;
+            max-height: 90vh;
+            overflow-y: auto;
+            border: 1px solid lime;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Window 
+        <div class="selectedButton" onclick="window.location.href = ('./event.html');" style="display: inline-block;">
+            <span class="">Event</span>
+        </div> Logger</h1>
+    <div id="log">Listening for events...</div>
+
+    <script>
+        const logContainer = document.getElementById("log");
+
+        function logEvent(eventType, event) {
+            const time = new Date().toLocaleTimeString();
+            const logEntry = `[${time}] ${eventType} fired on ${event.target.tagName}`;
+            
+            // Add the new log at the top
+            logContainer.innerHTML = logEntry + "<br>" + logContainer.innerHTML;
+        }
+
+        const ignoredEvents = ["mousemove", "scroll", "pointermove", "wheel"];
+        const allEvents = Object.keys(window)
+            .filter(key => key.startsWith("on"))
+            .map(event => event.slice(2))
+            .filter(event => !event.startsWith("mouse"))
+            .filter(event => !event.startsWith("pointer"))
+            .filter(event => !event.startsWith("wheel"))
+            .filter(event => !event.startsWith("scroll"));
+            // .filter(event => !ignoredEvents.includes(event));
+
+
+        allEvents.forEach(eventType => {
+            window.addEventListener(eventType, (event) => logEvent(eventType, event), true);
+        });
+    </script>
+</body>
+</html>
