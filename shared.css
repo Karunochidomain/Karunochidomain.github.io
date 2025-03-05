@@ -213,13 +213,18 @@ button img{
     position: absolute;
 }
 .sidebarButtonContainer{
+    --textSize: 8.5vmin;
+    /* min(10vw,7vh); */
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: center;
+    gap: calc(var(--textSize)/2);
+
+
     height:  96vh;
 
     margin: 2vh;
-    font-size: min(12vw);
+    font-size: var(--textSize);
     /* margin: 0; */
 
 }
