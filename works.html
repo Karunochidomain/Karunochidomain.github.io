@@ -89,6 +89,7 @@
             aspect-ratio: 1/1;
             transform: translate(-50%,-25%);
             /* mix-blend-mode: difference;z */
+            filter: drop-shadow(0 0  10px #0008);
         }
         .rollCenter{
             position: fixed;
@@ -377,6 +378,8 @@
             </svg>
         </div>
     </div>
+    <img class ="openSidebarButton mobile" src="asset/logo/menuLogo/Hamburger_icon.svg" alt="" onclick="openSidebar()">
+    
     <div class="sideMenu desktop fixed">
         <img src="asset\video\scrabble.gif" style="opacity: 1;">
         <div class="bgDarken"></div>
@@ -417,11 +420,11 @@
         <div id="music" class="music">
             <div class="musicEnd"></div>
         </div>
-        <div class="sosmedContainer">
+        <!-- <div class="sosmedContainer ">
             <img src="asset/logo/works link/pixiv.webp" onclick="window.open('https://www.pixiv.net/en/users/38281961', '_blank');" alt="pixiv">
             <img src="asset/logo/works link/twitter.webp" onclick="window.open('https://twitter.com/karunochi', '_blank');" alt="twitter">
             <img src="asset/logo/works link/youtube.webp" onclick="window.open('https://www.youtube.com/@karunochii', '_blank');" alt="youtube">
-        </div>
+        </div> -->
     </div>
 
     <div class="scrollCross mobile">
@@ -435,7 +438,7 @@
     </div>
 </div>
     
-    <div class="buttonContainer">
+    <div class="buttonContainer desktop">
         <div class="buttonSplitter">
             <button class="logoButton">
                 <div class="KRNC">
@@ -466,6 +469,33 @@
                 <img class="mobile" src="asset\logo\menuLogo\commission.webp" alt="Commission">
                 <span class="desktop">Commission</span>
             </button>
+            <button class="rightSideButton" onclick="switchPage('./index.html#blog');">
+                <img class="mobile" src="asset\logo\menuLogo\blog5.jpg" alt="Blog" >
+                <span class="desktop">Blog</span>
+            </button>
+        </div>
+    </div>
+    <div class="sidebar mobile" id="sidebar">
+        <div class="sidebarHeader">
+            <img class ="closeSidebarButton mobile" src="asset/logo/menuLogo/back.svg" alt="" onclick="closeSidebar()">
+        </div>
+        <div class="sidebarButtonContainer">
+            <div onclick="switchPage('./index.html');">
+                <span class="">Home</span>
+            </div>
+            <div class="selectedButton">
+                <span class="">Works</span>
+            </div>
+            <div class="" onclick="switchPage('./contact.html');" class="">
+                <span class="">Contact</span>
+            </div>
+            <div class="" onclick="switchPage('./commission.html');">
+                <span class="">Commission</span>
+            </div>
+            <div class="" onclick="switchPage('#blog');">
+                <span class="">Blog</span>
+            </div>
+
         </div>
     </div>
     <div class="imgViewer hide">
@@ -489,6 +519,7 @@
             setTimeout(()=>contentTr.style.opacity = "1",100);
 
         function switchPage(newPage){
+            closeSidebar()
             contentTr.style.opacity = "0";
             setTimeout(()=>window.location.href = newPage,400)
         }
@@ -1059,6 +1090,15 @@
         window.addEventListener('mouseup', (evt)=>{
             mouseStillDown = false;
         });
+
+        
+const sidebar = document.getElementById("sidebar")
+function openSidebar(smooth = true){
+    sidebar.style.right = "00vw"
+}
+function closeSidebar(smooth = true){
+    sidebar.style.right = "-100vw"
+}
     </script>	
     
     <div class="visitorCounter">

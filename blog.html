@@ -290,6 +290,10 @@
                         <img class="mobile" src="asset\logo\menuLogo\commission.webp" alt="Commission">
                         <span class="desktop">Commission</span>
                     </button>
+                    <button class="rightSideButton" onclick="switchPage('index+blog.html#blog');">
+                        <img class="mobile" src="asset\logo\menuLogo\blog5.jpg" alt="Blog" >
+                        <span class="desktop">Blog</span>
+                    </button>
                 </div>
             </div>
         </body>
@@ -303,10 +307,8 @@
             function switchPage(newPage){
                 contentTr.style.opacity = "0";
                 setTimeout(()=>window.location.href = newPage,400)
+                setTimeout(()=>contentTr.style.opacity = "1",1000);
             }
-            window.addEventListener("pageshow",()=>{
-                contentTr.style.opacity = "1";
-            });
         </script>
     <script>
         let root = document.documentElement;
@@ -373,6 +375,18 @@
                 }
                 // console.log(data);
             })
+        window.addEventListener("popstate", ()=>{
+            console.log("popstate trig")
+            const urlParams = new URLSearchParams(window.location.search);
+            const strPostNumberToOpen = [...urlParams.values()][0]; 
+            const postNumberToOpen = parseInt(strPostNusmberToOpen)
+            if(strPostNumberToOpen == null){
+                fadeIn(".postListContainer")
+                fadeOut(".displayedPost")
+            }else{
+                openPost(postNumberToOpen,0,500,false)
+            }
+        });
             
         function getPostId(post){
             for (const i in fullPostlist) {

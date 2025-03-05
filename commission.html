@@ -195,7 +195,7 @@
                             <div class="answer"  >I can draw human-form, nekomimi, anthro (humanoid with animal traits); I can NOT draw mecha and armored chara.</div>
                     </p>
                 </div>
-            <div class="buttonContainer">
+            <div class="buttonContainer desktop">
                 <div class="buttonSplitter">
                     <button class="logoButton">
                         <div class="KRNC">
@@ -226,8 +226,36 @@
                         <img class="mobile" src="asset\logo\menuLogo\commission.webp" alt="Commission">
                         <span class="desktop">Commission</span>
                     </button>
+                    <button class="rightSideButton" onclick="switchPage('./index.html#blog');">
+                        <img class="mobile" src="asset\logo\menuLogo\blog5.jpg" alt="Blog" >
+                        <span class="desktop">Blog</span>
+                    </button>
                 </div>
             </div>
+            
+    <img class ="openSidebarButton mobile" src="asset/logo/menuLogo/Hamburger_icon.svg" alt="" onclick="openSidebar()">
+    <div class="sidebar mobile" id="sidebar">
+        <div class="sidebarHeader">
+            <img class ="closeSidebarButton mobile" src="asset/logo/menuLogo/back.svg" alt="" onclick="closeSidebar()">
+        </div>
+        <div class="sidebarButtonContainer">
+            <div onclick="switchPage('./index.html');">
+                <span class="">Home</span>
+            </div>
+            <div class="" onclick="switchPage('./works.html');">
+                <span class="">Works</span>
+            </div>
+            <div class="" onclick="switchPage('./contact.html');" class="">
+                <span class="">Contact</span>
+            </div>
+            <div class="selectedButton">
+                <span class="">Commission</span>
+            </div>
+            <div class="" onclick="switchPage('./index.html#blog');">
+                <span class="">Blog</span>
+            </div>
+
+        </div>
 	<div class="imgViewer hide">
         	<div class="bgBlur"></div>
         	<img class="imageWindow">
@@ -241,6 +269,8 @@
             setTimeout(()=>contentTr.style.opacity = "1",100);
 
             function switchPage(newPage){
+            closeSidebar()
+
                 contentTr.style.opacity = "0";
                 setTimeout(()=>window.location.href = newPage,400)
             }
@@ -307,6 +337,14 @@
         function enableScroll() {
             window.onscroll = function() {};
         }
+        
+const sidebar = document.getElementById("sidebar")
+function openSidebar(smooth = true){
+    sidebar.style.right = "00vw"
+}
+function closeSidebar(smooth = true){
+    sidebar.style.right = "-100vw"
+}
     </script>
     <div class="visitorCounter">
         <a href='https://www.stat-counter.org/'>https://www.Stat-Counter.org</a> <script defer type='text/javascript' src='https://www.freevisitorcounters.com/auth.php?id=aa3b1e51e44619bb73688c5c710fbcd21032d75f'></script>

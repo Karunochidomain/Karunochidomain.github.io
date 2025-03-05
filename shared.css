@@ -184,3 +184,59 @@ button img{
     position: absolute;
     top: -100vh;
 }
+
+
+/* SIDE BAR CSS  */
+.openSidebarButton, .closeSidebarButton{
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    width: 75px;
+    max-width: 10vw;
+    cursor: pointer;
+    filter: drop-shadow(0 0 20px #0004);
+}
+.sidebar{
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    right: -100vw;
+    transition: right 0.5s;
+    top: 0;
+
+    background-color: #0004;
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+}
+.sidebarHeader{
+    height: 10vh;
+    position: absolute;
+}
+.sidebarButtonContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height:  96vh;
+
+    margin: 2vh;
+    font-size: min(12vw);
+    /* margin: 0; */
+
+}
+
+.sidebarButtonContainer>div{
+    cursor: pointer;
+}
+
+
+
+.sidebarButtonContainer>.selectedButton{
+    cursor: default;
+    /* position: relative; */
+    color: #bbb;
+    /* left: 10px; */
+    /* text-align: right; */
+    text-shadow: 0 0 1px #fff;
+    /* background-color: #0004; */
+    /* border: 1px solid #fff; */
+}
