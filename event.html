@@ -27,8 +27,13 @@
     <h1>Window 
         <div class="selectedButton" onclick="window.location.href = ('./event.html');" style="display: inline-block;">
             <span class="">Event</span>
-        </div> Logger</h1>
+        </div> Logger</h1><br>
+        <div class="selectedButton" onclick="window.location.href = ('#down');" style="display: inline-block;">
+            <span class="">Go to bottom</span>
+        </div>
     <div id="log">Listening for events...</div>
+    <div id="down"></div>
+    
 
     <script>
         const logContainer = document.getElementById("log");
@@ -47,6 +52,7 @@
             .map(event => event.slice(2))
             .filter(event => !event.startsWith("mouse"))
             .filter(event => !event.startsWith("pointer"))
+            .filter(event => !event.startsWith("device"))
             .filter(event => !event.startsWith("wheel"))
             .filter(event => !event.startsWith("scroll"));
             // .filter(event => !ignoredEvents.includes(event));

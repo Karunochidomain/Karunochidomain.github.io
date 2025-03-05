@@ -412,6 +412,18 @@
                 openPost(postNumberToOpen,0,500,false)
             }
         });
+        window.addEventListener("hashchange", ()=>{
+            console.log("popstate trig")
+            const urlParams = new URLSearchParams(window.location.search);
+            const strPostNumberToOpen = [...urlParams.values()][0]; 
+            const postNumberToOpen = parseInt(strPostNusmberToOpen)
+            if(strPostNumberToOpen == null){
+                fadeIn(".postListContainer")
+                fadeOut(".displayedPost")
+            }else{
+                openPost(postNumberToOpen,0,500,false)
+            }
+        });
             
         function getPostId(post){
             for (const i in fullPostlist) {
