@@ -259,7 +259,7 @@
                     </div>
                 </div>
             </div>
-            <div class="buttonContainer">
+            <div class="buttonContainer desktop">
                 <div class="buttonSplitter">
                     <button class="logoButton">
                         <div class="KRNC">
@@ -274,28 +274,52 @@
                             </span>
                         </div>
                     </button>
-                    <button >
+                    <button onclick="switchPage('./index.html');">
                         <img class="mobile" src="asset\logo\menuLogo\home.webp" alt="Home">
                         <span class="desktop">Home</span>
                     </button>
-                    <button onclick="window.location.href = './works.html';">
+                    <button onclick="switchPage('./works.html');">
                         <img class="mobile" src="asset\logo\menuLogo\works.webp" alt="Works">
                         <span class="desktop">Works</span>
                     </button>
-                    <button class="rightSideButton" id="selectedButton" >
+                    <button onclick="switchPage('./contact.html');"class="rightSideButton">
                         <img class="mobile" src="asset\logo\menuLogo\contact.webp" alt="Contact">
                         <span class="desktop">Contact</span>
                     </button>
-                    <button class="rightSideButton">
+                    <button class="rightSideButton" onclick="switchPage('./commission.html');" >
                         <img class="mobile" src="asset\logo\menuLogo\commission.webp" alt="Commission">
                         <span class="desktop">Commission</span>
                     </button>
-                    <button class="rightSideButton" onclick="switchPage('index+blog.html#blog');">
+                    <button class="rightSideButton" onclick="switchPage('./index.html#blog'); id="selectedButton"">
                         <img class="mobile" src="asset\logo\menuLogo\blog5.jpg" alt="Blog" >
                         <span class="desktop">Blog</span>
                     </button>
                 </div>
             </div>
+            
+    <img class ="openSidebarButton mobile" src="asset/logo/menuLogo/Hamburger_icon.svg" alt="" onclick="openSidebar()">
+    <div class="sidebar mobile" id="sidebar">
+        <div class="sidebarHeader">
+            <img class ="closeSidebarButton mobile" src="asset/logo/menuLogo/back.svg" alt="" onclick="closeSidebar()">
+        </div>
+        <div class="sidebarButtonContainer">
+            <div onclick="switchPage('./index.html');">
+                <span class="">Home</span>
+            </div>
+            <div class="" onclick="switchPage('./works.html');">
+                <span class="">Works</span>
+            </div>
+            <div class="" onclick="switchPage('./contact.html');" class="">
+                <span class="">Contact</span>
+            </div>
+            <div class="" onclick="switchPage('./commission.html');">
+                <span class="">Commission</span>
+            </div>
+            <div class="selectedButton" onclick="switchPage('./index.html#blog');">
+                <span class="">Blog</span>
+            </div>
+
+        </div>
         </body>
         <script>
             //transition
@@ -305,6 +329,7 @@
             setTimeout(()=>contentTr.style.opacity = "1",100);
 
             function switchPage(newPage){
+                closeSidebar()
                 contentTr.style.opacity = "0";
                 setTimeout(()=>window.location.href = newPage,400)
                 setTimeout(()=>contentTr.style.opacity = "1",1000);
@@ -664,6 +689,13 @@
         }
 
 
+const sidebar = document.getElementById("sidebar")
+function openSidebar(smooth = true){
+    sidebar.style.right = "00vw"
+}
+function closeSidebar(smooth = true){
+    sidebar.style.right = "-100vw"
+}
         
     </script>
 </html>
