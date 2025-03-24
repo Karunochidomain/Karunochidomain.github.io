@@ -526,7 +526,7 @@
                     const url = new URL(window.location);
                     // url.searchParams.set(toCamelCase(postlist[postIndex].title),"0");
                     // url.searchParams.set('postNumber',postIndex);
-                    url.searchParams.set(toCamelCase(postlist[postIndex].title),postIndex);
+                    url.searchParams.set(toCamelCase(fullPostlist[postIndex].title),postIndex);
                     history.pushState(null, '', url);
                 }
             }, fadeOutDuration);
