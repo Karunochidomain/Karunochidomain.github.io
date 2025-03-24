@@ -703,7 +703,7 @@ function back(){
 
 function openPost(postIndex,fadeOutDuration = 500, fadeInDuration=500, addParams = true){
     const url = new URL(`./blog.html?=${postIndex}`,window.location);
-    url.searchParams.set(toCamelCase(postlist[postIndex].title),postIndex);
+    url.searchParams.set(toCamelCase(fullPostlist[postIndex].title),postIndex);
     switchPage(url.href)
 }
 
