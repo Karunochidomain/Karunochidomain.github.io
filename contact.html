@@ -294,7 +294,7 @@
                     break;
                 case down:
                     hoveredElement = document.querySelector('.sosmedContainer .down');
-                    linkOnclick = "discord://discord.com/users/381636829184524288";
+                    linkOnclick = "discord";
                     imageToDraw = discord;
                     break;
             }
@@ -311,7 +311,19 @@
         });
         sosmed.addEventListener('click', 
                 function(event) {
-					window.location.href = linkOnclick;
+					if(linkOnclick=="dsicord"){
+						    const isAndroid = /Android/i.test(navigator.userAgent);
+
+						    if (isAndroid) {
+						        window.location.href =
+						            "intent://discord.com/users/381636829184524288#Intent;scheme=https;package=com.discord;end";
+						    } else {
+						        window.location.href =
+						            "discord://discord.com/users/381636829184524288";
+						    }
+					}else{
+						window.location.href = linkOnclick;
+					}
                 }
             );
             // ==========================
